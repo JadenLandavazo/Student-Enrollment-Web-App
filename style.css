@@ -22,3 +22,22 @@ body {
 h1, h3 {
     margin-bottom: 15px; 
 }
+
+#buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Reset margin */
+    gap: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#buttons button {
+    width: 150px; /* Set equal width for all buttons */
+    height: 50px; /* Set equal height for all buttons */
+    box-sizing: border-box; /* Ensure padding and border are included in size */
+}
