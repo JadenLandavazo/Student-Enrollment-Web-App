@@ -1,4 +1,20 @@
+html, body { 
+    height: 100%;
+    margin: 0;
+}
+
+/* All temporary */
 body { 
-    font-family: Verdana, sans-serif; padding: 20px;
-    background-color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    text-align: center;
+}
+
+#homepageText { 
+    color: black;
+    padding: 15px;
+    max-width: 80%; 
 }
