@@ -1,63 +1,88 @@
 html, body { 
-    height: 100%;
-    margin: 0;
+    
+    background-color: #f0f0f0;
+
 }
 
 #homeBody { 
+    /* Background */
     background-color: #f0f0f0;
 }
 
 body { 
+    /* Text Details */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    /* Layout */
     display: flex;
     justify-content: center; 
     align-items: flex-start; 
+
+    /* Background */
     background-color: white;
 }
 
 #homepageText { 
+    /* Text Details */
     color: black;
+    text-align: center;
+
+    /* Shape and Size */
     padding: 15px;
     max-width: 80%;
-    text-align: center;
 }
 
 h1, h3 {
+    /* Shape and Size */
     margin-bottom: 15px; 
 }
 
 #buttons_home {
+    /* Border */
     border-color: black;
     border-width: 2px;
     border-style: solid;
-    background-color: white;
+
+    /* Shape and Size */
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    justify-content: center;
-    align-items: center;
-    margin: 0; /* Reset margin */
-    gap: 5px;
-    column-gap: 50px;
+    margin: 0; 
+    min-height: 35%;
+    min-width: 200px;
+    
+    /* Position */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    /* Inner Content */
+    flex-direction: column; 
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+
+    /* Other */
+    background-color: white;
 }
 
 #buttons_home button:hover {
-    cursor: pointer; /* Change cursor to pointer on hover */
-    background-color: #e0e0e0; /* Change background color on hover */
+    cursor: pointer; 
+    background-color: #555555;
+    color: white;
 }
 
 #buttons_home button {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    /* Shape and Size */
+    margin-bottom: 5px;
     margin-left: 25px;
     margin-right: 25px;
-    border-radius: 5px;
-    border-color: black;
     width: 150px; 
     height: 50px; 
-    box-sizing: border-box; 
+
+    /* Border */
+    border-radius: 5px;
+    border-color: black;
+
+    /* Animation */
     transition-duration: 0.4s;
 }
