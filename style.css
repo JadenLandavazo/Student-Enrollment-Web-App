@@ -1,9 +1,11 @@
+/* General or All Pages */
 html, body { 
     
     background-color: #f0f0f0;
 
 }
 
+/* Home Page */
 #homeBody { 
     /* Background */
     background-color: #f0f0f0;
@@ -85,4 +87,33 @@ h1, h3 {
 
     /* Animation */
     transition-duration: 0.4s;
+}
+
+/* Login/Register Account Page */
+#login {
+    /* Border */
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+
+    /* Shape and Size */
+    display: flex;
+    margin: 0; 
+    min-height: 35%;
+    min-width: 200px;
+    
+    /* Position */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Inner Content */
+    flex-direction: column; 
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+
+    /* Other */
+    background-color: white;
 }
