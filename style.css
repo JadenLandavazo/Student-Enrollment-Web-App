@@ -1,195 +1,302 @@
-/* General or All Pages */
-html, body { 
-    
-    background-color: #f0f0f0;
-
+/* ========== GLOBAL STYLES ========== */
+:root {
+    --primary-blue: #005581;
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #333;
 }
 
-body { 
-    /* Text Details */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-
-    /* Layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
     display: flex;
-    justify-content: center; 
-    align-items: flex-start; 
-
-    /* Background */
-    background-color: white;
+    flex-direction: column;
 }
 
-/* Home Page */
-#homeBody { 
-    /* Background */
-    background-color: #f0f0f0;
+/* ========== UNIVERSITY HEADER ========== */
+.university-header {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
 
+.university-header h1 {
+    font-size: 3rem;
+    color: var(--primary-blue);
+    margin: 0;
+}
+
+.university-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin: 0;
+}
+
+/* ========== HOME PAGE STYLES ========== */
 #homepageText {
-
-    /* Shape and Size */
-    position: absolute;
-    top: 10%;
-    left: 50%;
-
-    /* position */
-    transform: translateX(-50%);
-
-    /* cool stuff ig */
-    color: white;
-    text-shadow: 1px 1px 2px black;
+    text-align: center;
+    padding: 30px 0;
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-h1, h3 {
-    /* Shape and Size */
-    margin-bottom: 15px; 
+#homepageText h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#homepageText h2 {
+    font-size: 2strem;
+    margin-bottom: 0.5rem;
+}
+
+#homepageText h3 {
+    font-size: 1.3rem;
+    color: #7f8c8d;
+    font-weight: 400;
+    margin-top: 0;
 }
 
 #buttons_home {
-    /* Border */
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-
-    /* Shape and Size */
     display: flex;
-    margin: 0; 
-    min-height: 35%;
-    min-width: 200px;
-    
-    /* Position */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* Inner Content */
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    gap: 5px;
     justify-content: center;
-
-    /* Other */
-    background-color: white;
+    flex-grow: 1;
+    gap: 20px;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-#loginButton,
-#registerButton {
-    /* Shape and Size */
-    margin-bottom: 5px;
-    margin-left: 25px;
-    margin-right: 25px;
-    width: 150px; 
-    height: 50px; 
-
-    /* Border */
-    border-radius: 5px;
-    border-color: black;
-    color: white;
-
-    /* Animation */
-    transition-duration: 0.4s;
-}
-
-#loginButton {
-    background-color: #4CAF50;
-}
-
-#registerButton {
-    background-color: #2196F3;
-}
-
-#loginButton:hover {
-    background-color: #157019;
-    cursor: pointer;
-}
-
-#registerButton:hover {
-    background-color: #0e68c5;
-    cursor: pointer;
-}
-
-
-/* Login & Register Account Page */
-
-#login {
-    /* Border */
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-
-    /* Shape and Size */
-    display: flex;
-    margin: 0; 
-    min-height: 35%;
-    min-width: 200px;
-    
-    /* Position */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* Inner Content */
-    flex-direction: column; 
-    align-items: center;
-    gap: 5px;
-    justify-content: center;
-
-    /* Other */
-    background-color: white;
-}
-
-#login label { 
-    font-weight: bold;
-    margin-bottom: 5px; 
-}
-
-
-#login input[type="text"],
-#login input[type="password"] {
-    padding: 10px;
-    border: 1px solid #555;
+.role-button {
+    padding: 15px 25px;
+    border: none;
     border-radius: 8px;
     font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    width: 100%;
+    text-align: center;
 }
 
-#login button {
+#studentloginButton {
+    background-color: #2ecc71;
+    transform: scale(1.5);
+    transform-origin: center;
+    margin-bottom: 20px;
+}
 
-    /* Shape and Size */
-    padding: 10px;
+#teacherloginButton {
+    background-color: #3498db;
+    transform: scale(1.5);
+    transform-origin: center;
+    margin-bottom: 20px;
+}
 
-    /* Border */
-    border-radius: 5px;
-    border-color: black;
-    color: white;
+#adminloginButton {
+    background-color: #9b59b6;
+    transform: scale(1.5);
+    transform-origin: center;
+    margin-bottom: 20px;
+}
 
-    /* font */
+
+.role-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+
+/* ========== LOGIN PAGE STYLES ========== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+.login-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;  
+    padding: 2.5rem;    
+    box-sizing: border-box;
+    transform: scale(1.5); 
+    transform-origin: center;
+    
+}
+
+
+.login-title {
+    color: var(--primary-blue);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+/* Divider under Sign In */
+.login-divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--medium-gray);
+    border: none;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.login-subtitle {
+    color: var(--dark-gray);
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 6px;
     font-size: 1rem;
-    font-weight: bold;
-
-    /* animation */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
-#showPassword { 
-    /* Shape and Size */
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 150px; 
-    height: 50px; 
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(0, 85, 129, 0.2);
+}
 
-    /* Border */
-    background-color: darkslategray;
-    border-radius: 5px;
-    border-color: black;
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.forgot-password {
+    color: var(--primary-blue);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
     color: white;
-
-    /* Animation */
-    transition-duration: 0.4s;
 }
 
-#showPassword:hover {
-    background-color: lightslategray;
+.btn-primary:hover {
+    background-color: #003d5c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Link Fix */
+.login-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+#createAccountLink {
+    text-decoration: underline;
+    color: inherit !important;
+    background: none !important;
+    border: none;
+    font: inherit;
+    padding: 0;
     cursor: pointer;
+}
+
+/* ========== RESPONSIVE STYLES ========== */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 1.5rem;
+    }
+
+    .login-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #homepageText h1 {
+        font-size: 2rem;
+    }
+
+    #homepageText h3 {
+        font-size: 1.1rem;
+    }
+
+    #buttons_home {
+        padding: 20px;
+        max-width: 300px;
+    }
+
+    .role-button {
+        padding: 12px 20px;
+    }
+
+    .login-container {
+        padding: 1rem;
+    }
+
+    .login-card {
+        padding: 1.5rem;
+    }
+
+    .form-group input {
+        padding: 12px 15px;
+    }
 }
