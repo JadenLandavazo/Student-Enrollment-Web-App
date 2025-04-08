@@ -5,12 +5,6 @@ html, body {
 
 }
 
-/* Home Page */
-#homeBody { 
-    /* Background */
-    background-color: #f0f0f0;
-}
-
 body { 
     /* Text Details */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -22,6 +16,12 @@ body {
 
     /* Background */
     background-color: white;
+}
+
+/* Home Page */
+#homeBody { 
+    /* Background */
+    background-color: #f0f0f0;
 }
 
 #homepageText {
@@ -148,7 +148,7 @@ h1, h3 {
 #login input[type="text"],
 #login input[type="password"] {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 8px;
     font-size: 1rem;
 }
@@ -159,8 +159,10 @@ h1, h3 {
     padding: 10px;
 
     /* Border */
-    border: none;
-    border-radius: 8px;
+    /* Border */
+    border-radius: 5px;
+    border-color: black;
+    color: white;
 
     /* font */
     font-size: 1rem;
