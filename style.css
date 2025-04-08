@@ -24,14 +24,19 @@ body {
     background-color: white;
 }
 
-#homepageText { 
-    /* Text Details */
-    color: black;
-    text-align: center;
+#homepageText {
 
     /* Shape and Size */
-    padding: 15px;
-    max-width: 80%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+
+    /* position */
+    transform: translateX(-50%);
+
+    /* cool stuff ig */
+    color: white;
+    text-shadow: 1px 1px 2px black;
 }
 
 h1, h3 {
@@ -67,13 +72,8 @@ h1, h3 {
     background-color: white;
 }
 
-#buttons_home button:hover {
-    cursor: pointer; 
-    background-color: #555555;
-    color: white;
-}
-
-#buttons_home button {
+#loginButton,
+#registerButton {
     /* Shape and Size */
     margin-bottom: 5px;
     margin-left: 25px;
@@ -84,12 +84,33 @@ h1, h3 {
     /* Border */
     border-radius: 5px;
     border-color: black;
+    color: white;
 
     /* Animation */
     transition-duration: 0.4s;
 }
 
-/* Login/Register Account Page */
+#loginButton {
+    background-color: #4CAF50;
+}
+
+#registerButton {
+    background-color: #2196F3;
+}
+
+#loginButton:hover {
+    background-color: #157019;
+    cursor: pointer;
+}
+
+#registerButton:hover {
+    background-color: #0e68c5;
+    cursor: pointer;
+}
+
+
+/* Login & Register Account Page */
+
 #login {
     /* Border */
     border-color: black;
@@ -116,4 +137,58 @@ h1, h3 {
 
     /* Other */
     background-color: white;
+}
+
+#login label { 
+    font-weight: bold;
+    margin-bottom: 5px; 
+}
+
+
+#login input[type="text"],
+#login input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+#login button {
+
+    /* Shape and Size */
+    padding: 10px;
+
+    /* Border */
+    border: none;
+    border-radius: 8px;
+
+    /* font */
+    font-size: 1rem;
+    font-weight: bold;
+
+    /* animation */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#showPassword { 
+    /* Shape and Size */
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 150px; 
+    height: 50px; 
+
+    /* Border */
+    background-color: darkslategray;
+    border-radius: 5px;
+    border-color: black;
+    color: white;
+
+    /* Animation */
+    transition-duration: 0.4s;
+}
+
+#showPassword:hover {
+    background-color: lightslategray;
+    cursor: pointer;
 }

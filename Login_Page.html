@@ -23,9 +23,27 @@
             <input type="password" id="password" name="password" required>
             <br>
         </form>
-        <button id="loginButton">Login</button>
+        <!-- BUTTONS DO NOTHING RIGHT NOW!!! -->
+        <button id="loginButton">Login</button> 
         <button id="registerButton">Sign Up</button>
+        <button id="showPassword" onclick="togglePasswordVisibility()">Show Password</button> 
     </div>
     
+    <script>
+        // toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePassword');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleButton.textContent = 'Hide Password';
+            } else {
+                passwordField.type = 'password';
+                toggleButton.textContent = 'Show Password';
+            }
+        }
+    </script>
+
 </body>
 </html>
