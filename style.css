@@ -4,9 +4,9 @@
     --light-gray: #f5f5f5;
     --medium-gray: #e0e0e0;
     --dark-gray: #333;
-}
-
-body {
+  }
+  
+  body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,29 +14,29 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-/* ========== UNIVERSITY HEADER ========== */
-.university-header {
+  }
+  
+  /* ========== UNIVERSITY HEADER ========== */
+  .university-header {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 1rem;
-}
-
-.university-header h1 {
+  }
+  
+  .university-header h1 {
     font-size: 3rem;
     color: var(--primary-blue);
     margin: 0;
-}
-
-.university-header h2 {
+  }
+  
+  .university-header h2 {
     font-size: 2.5rem;
     color: var(--primary-blue);
     margin: 0;
-}
-
-/* ========== HOME PAGE STYLES ========== */
-#homepageText {
+  }
+  
+  /* ========== HOME PAGE STYLES ========== */
+  #homepageText {
     text-align: center;
     padding: 30px 0;
     color: #2c3e50;
@@ -45,26 +45,26 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
-}
-
-#homepageText h1 {
+  }
+  
+  #homepageText h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-}
-
-#homepageText h2 {
-    font-size: 2strem;
+  }
+  
+  #homepageText h2 {
+    font-size: 2rem;
     margin-bottom: 0.5rem;
-}
-
-#homepageText h3 {
+  }
+  
+  #homepageText h3 {
     font-size: 1.3rem;
     color: #7f8c8d;
     font-weight: 400;
     margin-top: 0;
-}
-
-#buttons_home {
+  }
+  
+  #buttons_home {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,9 +75,9 @@ body {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-}
-
-.role-button {
+  }
+  
+  .role-button {
     padding: 15px 25px;
     border: none;
     border-radius: 8px;
@@ -88,138 +88,149 @@ body {
     color: white;
     width: 100%;
     text-align: center;
-}
-
-#studentloginButton {
+    transform: scale(1.5);
+    transform-origin: center;
+    margin-bottom: 20px;
+  }
+  
+  #studentloginButton {
     background-color: #2ecc71;
-    transform: scale(1.5);
-    transform-origin: center;
-    margin-bottom: 20px;
-}
-
-#teacherloginButton {
+  }
+  
+  #teacherloginButton {
     background-color: #3498db;
-    transform: scale(1.5);
-    transform-origin: center;
-    margin-bottom: 20px;
-}
-
-#adminloginButton {
+  }
+  
+  #adminloginButton {
     background-color: #9b59b6;
-    transform: scale(1.5);
-    transform-origin: center;
-    margin-bottom: 20px;
-}
-
-
-.role-button:hover {
-    transform: translateY(-3px);
+  }
+  
+  #registerButtonHome {
+    background-color: #e74c3c;
+  }
+  
+  .role-button:hover {
+    transform: scale(1.5) translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     opacity: 0.9;
-}
-
-/* ========== LOGIN PAGE STYLES ========== */
-.login-container {
+  }
+  
+  /* ========== LOGIN PAGE STYLES ========== */
+  .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
     padding: 2rem;
-}
-
-.login-card {
+  }
+  
+  .login-card {
     background: white;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px;  
-    padding: 2.5rem;    
+    max-width: 500px;
+    padding: 2.5rem;
     box-sizing: border-box;
-    transform: scale(1.5); 
+    transform: scale(1.5);
     transform-origin: center;
-    
-}
-
-
-.login-title {
+  }
+  
+  .login-title {
     color: var(--primary-blue);
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
     text-align: center;
-}
-
-/* Divider under Sign In */
-.login-divider {
+  }
+  
+  .login-form {
     width: 100%;
-    height: 1px;
-    background-color: var(--medium-gray);
-    border: none;
-    margin: 0.5rem 0 1rem 0;
-}
-
-.login-subtitle {
-    color: var(--dark-gray);
-    text-align: center;
-    margin-bottom: 2rem;
-    opacity: 0.8;
-}
-
-.login-form {
-    width: 100%;
-}
-
-.form-group {
+  }
+  
+  .form-group {
     margin-bottom: 1.5rem;
-}
-
-.form-group label {
+  }
+  
+  .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: var(--dark-gray);
-}
-
-.form-group input {
+  }
+  
+  /* Input Fields with Icons */
+  .input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--primary-blue);
+    pointer-events: none;
+    font-size: 1rem;
+  }
+  
+  .input-icon-wrapper input {
     width: 100%;
-    padding: 12px 15px;
+    padding: 12px 15px 12px 2.2rem;
     border: 1px solid var(--medium-gray);
     border-radius: 6px;
     font-size: 1rem;
     box-sizing: border-box;
     transition: all 0.3s ease;
-}
-
-.form-group input:focus {
+  }
+  
+  .input-icon-wrapper input:focus {
     outline: none;
     border-color: var(--primary-blue);
     box-shadow: 0 0 0 2px rgba(0, 85, 129, 0.2);
-}
-
-.form-options {
+  }
+  
+  /* Eye Toggle */
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-blue);
+    font-size: 1rem;
+  }
+  
+  .password-toggle:focus {
+    outline: none;
+  }
+  
+  /* Login Form Options */
+  .form-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 1.5rem 0;
     font-size: 0.9rem;
-}
-
-.remember-me {
+  }
+  
+  .remember-me {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-}
-
-.forgot-password {
+  }
+  
+  .forgot-password {
     color: var(--primary-blue);
     text-decoration: none;
     transition: color 0.3s;
-}
-
-.forgot-password:hover {
+  }
+  
+  .forgot-password:hover {
     text-decoration: underline;
-}
-
-.btn {
+  }
+  
+  /* Buttons */
+  .btn {
     display: block;
     width: 100%;
     padding: 0.8rem;
@@ -229,74 +240,80 @@ body {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-}
-
-.btn-primary {
+  }
+  
+  .btn-primary {
     background-color: var(--primary-blue);
     color: white;
-}
-
-.btn-primary:hover {
+  }
+  
+  .btn-primary:hover {
     background-color: #003d5c;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Footer Link Fix */
-.login-footer {
+  }
+  
+  /* Footer */
+  .login-footer {
     margin-top: 1.5rem;
     text-align: center;
     font-size: 0.9rem;
-}
-
-#createAccountLink {
+  }
+  
+  #createAccountLink,
+  #registerButton {
     text-decoration: underline;
-    color: inherit !important;
-    background: none !important;
+    color: inherit;
+    background: none;
     border: none;
     font: inherit;
     padding: 0;
     cursor: pointer;
-}
-
-/* ========== RESPONSIVE STYLES ========== */
-@media (max-width: 768px) {
+  }
+  
+  /* ========== RESPONSIVE STYLES ========== */
+  @media (max-width: 768px) {
     .login-card {
-        padding: 1.5rem;
+      padding: 1.5rem;
     }
-
+  
     .login-title {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-}
-
-@media (max-width: 480px) {
+  }
+  
+  @media (max-width: 480px) {
     #homepageText h1 {
-        font-size: 2rem;
+      font-size: 2rem;
     }
-
+  
+    #homepageText h2 {
+      font-size: 1.6rem;
+    }
+  
     #homepageText h3 {
-        font-size: 1.1rem;
+      font-size: 1.1rem;
     }
-
+  
     #buttons_home {
-        padding: 20px;
-        max-width: 300px;
+      padding: 20px;
+      max-width: 300px;
     }
-
+  
     .role-button {
-        padding: 12px 20px;
+      padding: 12px 20px;
     }
-
+  
     .login-container {
-        padding: 1rem;
+      padding: 1rem;
     }
-
+  
     .login-card {
-        padding: 1.5rem;
+      padding: 1.5rem;
     }
-
+  
     .form-group input {
-        padding: 12px 15px;
+      padding: 12px 15px;
     }
-}
+  }
+  
