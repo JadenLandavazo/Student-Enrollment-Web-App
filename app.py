@@ -81,7 +81,22 @@ admin.add_view(ModelView(TeacherClass, db.session))
 # temporary routing just to make the app run
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('Home.html')
+
+# To make the student login run
+@app.route('/student-login')
+def student_login():
+    return render_template('Student_Login_Page.html')
+
+# To make the teacher login run
+@app.route('/teacher-login')
+def teacher_login():
+    return render_template('Teacher_Login_Page.html')
+
+# To make the admin run
+@app.route('/admin-login')
+def admin_login():
+    return render_template('Admin_Login_Page.html')
 
 if __name__ == '__main__':
     with app.app_context():
