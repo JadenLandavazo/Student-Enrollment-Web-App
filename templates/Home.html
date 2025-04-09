@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>University Portal</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>University Portal</title>
 </head>
 <body id="homeBody">
 
-    <!-- Page Title -->
-    <div id="homepageText">
-        <h1>UC Merced</h1>
-        <h2>Select Login</h3>
-    </div>
+  <!-- Page Title -->
+  <div id="homepageText">
+    <h1>UC Merced</h1>
+    <h2>Select Login</h2>
+  </div>
 
-    <!-- Buttons for login -->
-    <div id="buttons_home">
-        <button class="role-button" id="studentloginButton" onclick="location.href='Student_Login_Page.html'">Student Login</button>
-        <button class="role-button" id="teacherloginButton" onclick="location.href='Teacher_Login_Page.html'">Teacher Login</button>
-        <button class="role-button" id="adminloginButton" onclick="location.href='Admin_Login_Page.html'">Admin Login</button>
-    </div>
-    
+  <!-- Buttons for login -->
+  <a href="{{ url_for('student_login') }}">
+    <button class="role-button" id="studentloginButton">Student Login</button>
+  </a>
+  <a href="{{ url_for('teacher_login') }}">
+    <button class="role-button" id="teacherloginButton">Teacher Login</button>
+  </a>
+  <a href="{{ url_for('admin_login') }}">
+    <button class="role-button" id="adminloginButton">Admin Login</button>
+  </a>
+
 </body>
 </html>
