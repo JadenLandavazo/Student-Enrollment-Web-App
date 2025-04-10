@@ -6,10 +6,11 @@
 # to a table of students in that class with their name and grades
 # in two separate columns
 # handle sign out
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from sqlalchemy import text
 
 # create a new sql database uri 
 # created an app object
@@ -18,7 +19,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school.db'
 
 # created the student database
 db = SQLAlchemy(app)
-
 # these are the attributes of a user of the website
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -77,11 +77,28 @@ admin.add_view(ModelView(Class, db.session))
 admin.add_view(ModelView(Enrollment, db.session))
 admin.add_view(ModelView(TeacherClass, db.session))
 
+#Registration logic
 
 # temporary routing just to make the app run
 @app.route('/')
 def home():
     return render_template('Home.html')
+
+@app.route('/student-registration', methods = ['GET', 'POST'])
+def student_registration():
+    if request.method == 'POST':
+        uni_id = request.form.get("username")
+        password = request.form.get("password")
+        result = db.session.execute(text('SELECT uni_id FROM user WHERE uni_id = :uni_id'), {'uni_id': uni_id})
+        existing_user = result.fetchone()
+
+        if existing_user:
+            return render_template('Student_Registration_Page.html')
+        new_student = User(uni_id=uni_id, password=password, role='student')
+        db.session.add(new_student)
+        db.session.commit()
+        return render_template('Student_Registration_Page.html')
+    return render_template('Student_Registration_Page.html')
 
 # To make the student login run
 @app.route('/student-login')

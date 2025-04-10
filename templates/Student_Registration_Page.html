@@ -5,28 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <title>Login | UC Merced</title>
+  <title>Register | UC Merced</title>
 </head>
 <body id="loginBody">
 
   <!-- Page Title -->
   <div class="university-header">
     <h1>UC Merced</h1>
-    <h2>Student Login</h2>
+    <h2>Student Registration</h2>
   </div>
 
-  <!-- Login Form Card -->
+  <!-- Registration Form Card -->
   <div class="login-container">
     <div class="login-card">
-      <h2 class="login-title">Login</h2>
+      <h2 class="login-title">Register</h2>
 
-      <form id="loginForm" class="login-form">
+      <form id="registerForm" class="login-form" method = 'POST' >
         <!-- Username -->
         <div class="form-group">
           <label for="username">University ID</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-user input-icon"></i>
-            <input type="text" id="username" name="username" placeholder="Enter your ID" required />
+            <input type="text" id="username" name="username" placeholder="Create your ID" required />
           </div>
         </div>
 
@@ -35,7 +35,7 @@
           <label for="password">Password</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-lock input-icon"></i>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required />
+            <input type="password" id="password" name="password" placeholder="Create a password" required />
             <button type="button" id="showPassword" class="password-toggle" onclick="togglePasswordVisibility()">
               <i id="eyeIcon" class="fas fa-eye"></i>
             </button>
@@ -47,23 +47,21 @@
           <label class="remember-me">
             <input type="checkbox" /> Remember me
           </label>
-          <a href="#" class="forgot-password">Forgot password?</a>
         </div>
 
-        <!-- Login Button -->
-        <button id="loginButton" type="button" class="btn btn-primary">Login</button>
+        <!-- Register Button -->
+        <button id="registerButton" type="submit" class="btn btn-primary">Register</button>
 
         <!-- Footer -->
         <div class="login-footer">
-          <p>Don't have an account? <a href="{{ url_for('student_registration') }}">Create Account</a></p>
+          <p>Already have an account? <a href="{{ url_for('student_login') }}">Login</a></p>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- JavaScript -->
   <script>
-    // Toggle password visibility and update eye icon
+
     function togglePasswordVisibility() {
       const passwordField = document.getElementById("password");
       const eyeIcon = document.getElementById("eyeIcon");
@@ -91,5 +89,6 @@
       }
     });
   </script>
+
 </body>
 </html>
