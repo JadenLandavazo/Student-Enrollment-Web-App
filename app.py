@@ -86,18 +86,21 @@ def home():
 
 @app.route('/student-registration', methods = ['GET', 'POST'])
 def student_registration():
-    if request.method == 'POST':
+    if request.method == 'POST': #activates if POST request occurs
         uni_id = request.form.get("username")
         password = request.form.get("password")
-        result = db.session.execute(text('SELECT uni_id FROM user WHERE uni_id = :uni_id'), {'uni_id': uni_id})
+        #Allows SQL code for USER ID SEARCH AND COMPARISON
+        result = db.session.execute(text('SELECT uni_id FROM user WHERE uni_id = :uni_id'), {'uni_id': uni_id}) 
         existing_user = result.fetchone()
-
+        #CHECKS IF USER EXISTS IF IT DOES IT SHOULD LEAVE AN ERROR MESSAGE (WILL DO SOON)
         if existing_user:
             return render_template('Student_Registration_Page.html')
+        
         new_student = User(uni_id=uni_id, password=password, role='student')
         db.session.add(new_student)
         db.session.commit()
-        return render_template('Student_Registration_Page.html')
+        #IF ITS NOT FOUND IT SHOULD RETURN TO LOGIN PAGE
+        return render_template('Student_Login_Page.html')
     return render_template('Student_Registration_Page.html')
 
 # To make the student login run
