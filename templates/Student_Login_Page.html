@@ -20,7 +20,7 @@
     <div class="login-card">
       <h2 class="login-title">Login</h2>
 
-      <form id="loginForm" class="login-form">
+      <form id="loginForm" class="login-form" action="{{ url_for('student_login') }}" method="POST">
         <!-- Username -->
         <div class="form-group">
           <label for="username">University ID</label>
@@ -51,7 +51,7 @@
         </div>
 
         <!-- Login Button -->
-        <button id="loginButton" type="button" class="btn btn-primary">Login</button>
+        <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
 
         <!-- Footer -->
         <div class="login-footer">

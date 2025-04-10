@@ -104,9 +104,28 @@ def student_registration():
     return render_template('Student_Registration_Page.html')
 
 # To make the student login run
-@app.route('/student-login')
+@app.route('/student-login', methods = ['GET', 'POST'])
 def student_login():
+    #iterate through the table
+    if request.method == 'POST':
+        uni_id = request.form.get("username")
+        password = request.form.get("password")
+
+        result = db.session.execute(text('SELECT * FROM user WHERE uni_id = :uni_id AND password = :password'), {'uni_id': uni_id, 'password': password})
+        
+        student = result.fetchone()
+
+        if student:
+            return redirect(url_for('student_view_courses'))
+        else:
+            return render_template('Student_Login_Page.html', error="Invalid username or password")
+
+        
     return render_template('Student_Login_Page.html')
+
+@app.route('/student-view-courses')
+def student_view_courses():
+    return render_template('Student_View_Courses.html')
 
 # To make the teacher login run
 @app.route('/teacher-login')
