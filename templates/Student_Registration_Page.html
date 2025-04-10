@@ -12,7 +12,7 @@
   <!-- Page Title -->
   <div class="university-header">
     <h1>UC Merced</h1>
-    <!-- <h2>Student Registration</h2> -->
+    <h2>Student Registration</h2>
   </div>
 
   <!-- Registration Form Card -->
@@ -21,14 +21,18 @@
       <div class="login-card">
         <h2 class="login-title">Register</h2>
 
-        <form id="registerForm" class="login-form" method = 'POST' action="{{ url_for('student_registration') }}">
+        <!-- Display error message if user already exists -->
+        {% if message %}
+          <p style="color: red; text-align: center; font-weight: bold;">{{ message }}</p>
+        {% endif %}
+
+        <form id="registerForm" class="login-form" method='POST' action="{{ url_for('student_registration') }}">
           <!-- Username -->
           <div class="form-group">
             <label for="username">University ID</label>
             <div class="input-icon-wrapper">
               <i class="fas fa-user input-icon"></i>
-              <input type="text" id="username" name="username" placeholder="Create your ID" required />
-            </div>
+              <input type="text" id="uni_id" name="uni_id" placeholder="Create your ID" value="{{ uni_id if uni_id }}" required />         
           </div>
 
           <!-- Password -->
@@ -63,7 +67,6 @@
   </div>
 
   <script>
-
     function togglePasswordVisibility() {
       const passwordField = document.getElementById("password");
       const eyeIcon = document.getElementById("eyeIcon");
@@ -79,17 +82,6 @@
       }
     }
 
-    // Check username and password on login click
-    document.getElementById("loginButton").addEventListener("click", function () {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-
-      if (username && password) {
-        console.log("Login attempted with:", username, password);
-      } else {
-        alert("Please fill in all fields");
-      }
-    });
   </script>
 
 </body>
