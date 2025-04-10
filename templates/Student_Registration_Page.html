@@ -7,56 +7,58 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <title>Register | UC Merced</title>
 </head>
-<body id="loginBody">
+<body id="loginBody" class="register-page">
 
   <!-- Page Title -->
   <div class="university-header">
     <h1>UC Merced</h1>
-    <h2>Student Registration</h2>
+    <!-- <h2>Student Registration</h2> -->
   </div>
 
   <!-- Registration Form Card -->
-  <div class="login-container">
-    <div class="login-card">
-      <h2 class="login-title">Register</h2>
+  <div class="center-wrapper">
+    <div class="login-container">
+      <div class="login-card">
+        <h2 class="login-title">Register</h2>
 
-      <form id="registerForm" class="login-form" method = 'POST' action="{{ url_for('student-registration') }} >
-        <!-- Username -->
-        <div class="form-group">
-          <label for="username">University ID</label>
-          <div class="input-icon-wrapper">
-            <i class="fas fa-user input-icon"></i>
-            <input type="text" id="username" name="username" placeholder="Create your ID" required />
+        <form id="registerForm" class="login-form" method = 'POST' action="{{ url_for('student_registration') }}">
+          <!-- Username -->
+          <div class="form-group">
+            <label for="username">University ID</label>
+            <div class="input-icon-wrapper">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="username" name="username" placeholder="Create your ID" required />
+            </div>
           </div>
-        </div>
 
-        <!-- Password -->
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-icon-wrapper">
-            <i class="fas fa-lock input-icon"></i>
-            <input type="password" id="password" name="password" placeholder="Create a password" required />
-            <button type="button" id="showPassword" class="password-toggle" onclick="togglePasswordVisibility()">
-              <i id="eyeIcon" class="fas fa-eye"></i>
-            </button>
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-icon-wrapper">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="password" name="password" placeholder="Create a password" required />
+              <button type="button" id="showPassword" class="password-toggle" onclick="togglePasswordVisibility()">
+                <i id="eyeIcon" class="fas fa-eye"></i>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Options -->
-        <div class="form-options">
-          <label class="remember-me">
-            <input type="checkbox" /> Remember me
-          </label>
-        </div>
+          <!-- Options -->
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" /> Remember me
+            </label>
+          </div>
 
-        <!-- Register Button -->
-        <button id="registerButton" type="submit" class="btn btn-primary">Register</button>
+          <!-- Register Button -->
+          <button id="registerButton" type="submit" class="btn btn-primary">Register</button>
 
-        <!-- Footer -->
-        <div class="login-footer">
-          <p>Already have an account? <a href="{{ url_for('student_login') }}">Login</a></p>
-        </div>
-      </form>
+          <!-- Footer -->
+          <div class="login-footer">
+            <p>Already have an account? <a href="{{ url_for('student_login') }}">Login</a></p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 

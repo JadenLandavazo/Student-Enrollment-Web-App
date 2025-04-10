@@ -271,6 +271,33 @@
     cursor: pointer;
   }
   
+  /* ==========  REGISTRATION ========== */
+  #loginBody.register-page { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  #loginBody.register-page .login-container{ 
+    margin: 0;
+    flex: none;
+    max-height: 75vh;
+    max-width: 100%; 
+    box-sizing: border-box;
+  }
+
+  .register-page .center-wrapper { 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    min-height: 50vh; 
+    padding-bottom: 2rem;
+    padding-top: 3rem;
+  }
+
   /* ========== RESPONSIVE STYLES ========== */
   @media (max-width: 768px) {
     .login-card {
