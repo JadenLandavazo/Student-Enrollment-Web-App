@@ -84,24 +84,32 @@ admin.add_view(ModelView(TeacherClass, db.session))
 def home():
     return render_template('Home.html')
 
-@app.route('/student-registration', methods = ['GET', 'POST'])
+# For Sudent Registration
+@app.route('/student-registration', methods=['GET', 'POST'])
 def student_registration():
-    if request.method == 'POST': #activates if POST request occurs
-        uni_id = request.form.get("username")
+    if request.method == 'POST':
+        uni_id = request.form.get("uni_id")  
         password = request.form.get("password")
-        #Allows SQL code for USER ID SEARCH AND COMPARISON
-        result = db.session.execute(text('SELECT uni_id FROM user WHERE uni_id = :uni_id'), {'uni_id': uni_id}) 
-        existing_user = result.fetchone()
-        #CHECKS IF USER EXISTS IF IT DOES IT SHOULD LEAVE AN ERROR MESSAGE (WILL DO SOON)
-        if existing_user:
-            return render_template('Student_Registration_Page.html')
         
+        # Check if user exists
+        existing_user = User.query.filter_by(uni_id=uni_id).first()
+        if existing_user:
+            return render_template('Student_Registration_Page.html', message="User already exists!", uni_id=uni_id)  # Pass back the entered ID
+        
+        # Create new user
         new_student = User(uni_id=uni_id, password=password, role='student')
         db.session.add(new_student)
         db.session.commit()
-        #IF ITS NOT FOUND IT SHOULD RETURN TO LOGIN PAGE
-        return render_template('Student_Login_Page.html')
+        return redirect(url_for('student_login'))  # Redirect to login after success
+    
     return render_template('Student_Registration_Page.html')
+
+# To see the users 
+@app.route('/users')
+def show_users():
+    users = User.query.all()
+    return render_template('Users.html', users=users)
+
 
 # To make the student login run
 @app.route('/student-login', methods = ['GET', 'POST'])
