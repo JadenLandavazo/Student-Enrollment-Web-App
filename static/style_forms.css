@@ -1,363 +1,497 @@
 /* ========== GLOBAL STYLES ========== */
 :root {
-    --primary-blue: #005581;
-    --light-gray: #f5f5f5;
-    --medium-gray: #e0e0e0;
-    --dark-gray: #333;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-    display: flex;
+  --primary-blue: #005581;
+  --light-gray: #f5f5f5;
+  --medium-gray: #e0e0e0;
+  --dark-gray: #333;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== UNIVERSITY HEADER ========== */
+.university-header {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.university-header h1 {
+  font-size: 3rem;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
+.university-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
+/* ========== HOME PAGE STYLES ========== */
+#homepageText {
+  text-align: center;
+  padding: 30px 0;
+  color: #2c3e50;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#homepageText h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#homepageText h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+#homepageText h3 {
+  font-size: 1.3rem;
+  color: #7f8c8d;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+#buttons_home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 20px;
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.role-button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  width: 100%;
+  text-align: center;
+  transform: scale(1.5);
+  transform-origin: center;
+  margin-bottom: 20px;
+}
+
+#studentloginButton {
+  background-color: #2ecc71;
+}
+
+#teacherloginButton {
+  background-color: #3498db;
+}
+
+#adminloginButton {
+  background-color: #9b59b6;
+}
+
+#registerButtonHome {
+  background-color: #e74c3c;
+}
+
+.role-button:hover {
+  transform: scale(1.5) translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+}
+
+/* ========== LOGIN PAGE STYLES ========== */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1.5rem;
+}
+
+.login-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  padding: 2.5rem;
+  box-sizing: border-box;
+  transform: scale(1.5);
+  transform-origin: center;
+}
+
+.login-title {
+  color: var(--primary-blue);
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--dark-gray);
+}
+
+.login-page .center-wrapper { 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  /* max-height: 60vh; */
+  min-height: 30vh; 
+  padding-bottom: 2rem;
+  padding-top: 5rem;
+}
+
+/* Input Fields with Icons */
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--primary-blue);
+  pointer-events: none;
+  font-size: 1rem;
+}
+
+.input-icon-wrapper input {
+  width: 100%;
+  padding: 12px 15px 12px 2.2rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.input-icon-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 2px rgba(0, 85, 129, 0.2);
+}
+
+/* Eye Toggle */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-blue);
+  font-size: 1rem;
+}
+
+.password-toggle:focus {
+  outline: none;
+}
+
+/* Login Form Options */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forgot-password {
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #003d5c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+#createAccountLink,
+#registerButton {
+  text-decoration: underline;
+  color: inherit;
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ==========  REGISTRATION ========== */
+#loginBody.register-page { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#loginBody.register-page .login-container{ 
+  margin: 0;
+  flex: none;
+  max-height: 75vh;
+  max-width: 100%; 
+  box-sizing: border-box;
+}
+
+.register-page .center-wrapper { 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  min-height: 40vh; 
+  padding-bottom: 2rem;
+  padding-top: 3rem;
+}
+
+.register-page #registerButton { 
+  background-color: #e74c3c;
+  color: white;
+  min-height: 30px;
+}
+
+
+/* ========== FIXED STUDENT VIEW COURSE PAGE STYLE ========== */
+
+body.student-view {
+  background-color: #dce6f2;
+}
+
+.header {
+  background-color: #dce6f2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.header .welcome {
+  font-size: 16px;
+  flex-basis: 25%;
+}
+
+.header .signout {
+  font-size: 16px;
+  flex-basis: 25%;
+  text-align: right;
+}
+
+.header .signout a {
+  color: #003366;
+  text-decoration: underline;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  justify-content: center;
+  background-color: #4577b9;
+}
+
+.tab {
+  flex: 1;
+  padding: 14px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  border-right: 1px solid #4577b9;
+}
+
+.tab.inactive {
+  background-color: #a8c1e1;
+  color: black;
+  cursor: pointer;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+/* Course container */
+.course-container {
+  background-color: #4577b9;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 30px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Course table */
+.course-container table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.course-container th,
+.course-container td {
+  padding: 14px 20px;
+  text-align: left;
+}
+
+.course-container th {
+  background-color: #e6e6e6;
+  font-weight: bold;
+}
+
+.course-container tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.no-courses {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .student-header {
     flex-direction: column;
-  }
-  
-  /* ========== UNIVERSITY HEADER ========== */
-  .university-header {
     text-align: center;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
+    padding: 15px;
   }
   
-  .university-header h1 {
-    font-size: 3rem;
-    color: var(--primary-blue);
-    margin: 0;
-  }
-  
-  .university-header h2 {
-    font-size: 2.5rem;
-    color: var(--primary-blue);
-    margin: 0;
-  }
-  
-  /* ========== HOME PAGE STYLES ========== */
-  #homepageText {
-    text-align: center;
-    padding: 30px 0;
-    color: #2c3e50;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  
-  #homepageText h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  #homepageText h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  #homepageText h3 {
-    font-size: 1.3rem;
-    color: #7f8c8d;
-    font-weight: 400;
-    margin-top: 0;
-  }
-  
-  #buttons_home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    gap: 20px;
-    padding: 40px 20px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .role-button {
-    padding: 15px 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: white;
+  .student-header .welcome,
+  .student-header .signout {
+    flex-basis: auto;
     width: 100%;
     text-align: center;
-    transform: scale(1.5);
-    transform-origin: center;
-    margin-bottom: 20px;
+    margin: 5px 0;
   }
   
-  #studentloginButton {
-    background-color: #2ecc71;
+  .course-container {
+    padding: 15px;
+    margin: 15px;
   }
   
-  #teacherloginButton {
-    background-color: #3498db;
+  .course-table th,
+  .course-table td {
+    padding: 10px 15px;
   }
-  
-  #adminloginButton {
-    background-color: #9b59b6;
-  }
-  
-  #registerButtonHome {
-    background-color: #e74c3c;
-  }
-  
-  .role-button:hover {
-    transform: scale(1.5) translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    opacity: 0.9;
-  }
-  
-  /* ========== LOGIN PAGE STYLES ========== */
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+}
+
+
+
+/* ========== RESPONSIVE STYLES ========== */
+@media (max-width: 768px) {
+  .login-card {
     padding: 1.5rem;
   }
-  
-  .login-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    padding: 2.5rem;
-    box-sizing: border-box;
-    transform: scale(1.5);
-    transform-origin: center;
-  }
-  
+
   .login-title {
-    color: var(--primary-blue);
-    font-size: 1.8rem;
-    margin-bottom: 0.25rem;
-    text-align: center;
+    font-size: 1.5rem;
   }
-  
-  .login-form {
-    width: 100%;
-  }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--dark-gray);
+}
+
+@media (max-width: 480px) {
+  #homepageText h1 {
+    font-size: 2rem;
   }
 
-  .login-page .center-wrapper { 
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    /* max-height: 60vh; */
-    min-height: 30vh; 
-    padding-bottom: 2rem;
-    padding-top: 5rem;
-  }
-  
-  /* Input Fields with Icons */
-  .input-icon-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .input-icon {
-    position: absolute;
-    left: 12px;
-    color: var(--primary-blue);
-    pointer-events: none;
-    font-size: 1rem;
-  }
-  
-  .input-icon-wrapper input {
-    width: 100%;
-    padding: 12px 15px 12px 2.2rem;
-    border: 1px solid var(--medium-gray);
-    border-radius: 6px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-  }
-  
-  .input-icon-wrapper input:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 2px rgba(0, 85, 129, 0.2);
-  }
-  
-  /* Eye Toggle */
-  .password-toggle {
-    position: absolute;
-    right: 12px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--primary-blue);
-    font-size: 1rem;
-  }
-  
-  .password-toggle:focus {
-    outline: none;
-  }
-  
-  /* Login Form Options */
-  .form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1.5rem 0;
-    font-size: 0.9rem;
-  }
-  
-  .remember-me {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .forgot-password {
-    color: var(--primary-blue);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .forgot-password:hover {
-    text-decoration: underline;
-  }
-  
-  /* Buttons */
-  .btn {
-    display: block;
-    width: 100%;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-primary {
-    background-color: var(--primary-blue);
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #003d5c;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Footer */
-  .login-footer {
-    margin-top: 1.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-  
-  #createAccountLink,
-  #registerButton {
-    text-decoration: underline;
-    color: inherit;
-    background: none;
-    border: none;
-    font: inherit;
-    padding: 0;
-    cursor: pointer;
-  }
-  
-  /* ==========  REGISTRATION ========== */
-  #loginBody.register-page { 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    flex-direction: column;
+  #homepageText h2 {
+    font-size: 1.6rem;
   }
 
-  #loginBody.register-page .login-container{ 
-    margin: 0;
-    flex: none;
-    max-height: 75vh;
-    max-width: 100%; 
-    box-sizing: border-box;
+  #homepageText h3 {
+    font-size: 1.1rem;
   }
 
-  .register-page .center-wrapper { 
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    min-height: 40vh; 
-    padding-bottom: 2rem;
-    padding-top: 3rem;
+  #buttons_home {
+    padding: 20px;
+    max-width: 300px;
   }
 
-  .register-page #registerButton { 
-    background-color: #e74c3c;
-    color: white;
-    min-height: 30px;
+  .role-button {
+    padding: 12px 20px;
   }
 
-  /* ========== RESPONSIVE STYLES ========== */
-  @media (max-width: 768px) {
-    .login-card {
-      padding: 1.5rem;
-    }
-  
-    .login-title {
-      font-size: 1.5rem;
-    }
+  .login-container {
+    padding: 1rem;
   }
-  
-  @media (max-width: 480px) {
-    #homepageText h1 {
-      font-size: 2rem;
-    }
-  
-    #homepageText h2 {
-      font-size: 1.6rem;
-    }
-  
-    #homepageText h3 {
-      font-size: 1.1rem;
-    }
-  
-    #buttons_home {
-      padding: 20px;
-      max-width: 300px;
-    }
-  
-    .role-button {
-      padding: 12px 20px;
-    }
-  
-    .login-container {
-      padding: 1rem;
-    }
-  
-    .login-card {
-      padding: 1.5rem;
-    }
-  
-    .form-group input {
-      padding: 12px 15px;
-    }
+
+  .login-card {
+    padding: 1.5rem;
   }
-  
+
+  .form-group input {
+    padding: 12px 15px;
+  }
+}
