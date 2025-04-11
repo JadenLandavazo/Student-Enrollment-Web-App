@@ -94,7 +94,7 @@ def student_registration():
         # Check if user exists
         existing_user = User.query.filter_by(uni_id=uni_id).first()
         if existing_user:
-            return render_template('Student_Registration_Page.html', message="User already exists!", uni_id=uni_id)  # Pass back the entered ID
+            return render_template('Student_Registration_Page.html', message="User ID already exists!", uni_id=uni_id)  # Pass back the entered ID
         
         # Create new user
         new_student = User(uni_id=uni_id, password=password, role='student')
@@ -145,7 +145,7 @@ def teacher_registration():
         # Check if user exists
         existing_user = User.query.filter_by(uni_id=uni_id).first()
         if existing_user:
-            return render_template('Teacher_Registration_Page.html', message="User already exists!", uni_id=uni_id)  # Pass back the entered ID
+            return render_template('Teacher_Registration_Page.html', message="User ID already exists!", uni_id=uni_id)  # Pass back the entered ID
         
         # Create new user
         new_teacher = User(uni_id=uni_id, password=password, role='teacher')
@@ -168,10 +168,14 @@ def teacher_login():
         teacher = result.fetchone()
 
         if teacher:
-            return redirect(url_for('Teacher_View_Courses'))
+            return redirect(url_for('teacher_view_course'))
         else:
             return render_template('Teacher_Login_Page.html', error="Invalid username or password")
     return render_template('Teacher_Login_Page.html')
+
+@app.route('/teacher-view-course')
+def teacher_view_course():
+    return render_template('Teacher_View_Course.html')
 
 # To make the admin run
 @app.route('/admin-login')
