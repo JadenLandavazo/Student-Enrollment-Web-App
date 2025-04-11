@@ -169,21 +169,27 @@ def student_add_courses():
         return redirect(url_for('student_login'))
 
     enrolled_ids = [en.class_id for en in student.student_classes]
-    available_classes = Class.query.filter(~Class.id.in_(enrolled_ids)).all()
+    all_classes = Class.query.all()
 
     courses = []
-    for class_ in available_classes:
+    for class_ in all_classes:
         teacher_name = "TBA"
         if class_.teachers:
             teacher = class_.teachers[0].teacher
             teacher_name = teacher.uni_id
+
+        student_count = len(class_.students)
+        is_enrolled = class_.id in enrolled_ids
+        is_full = student_count >= 10  # Change 10 if your max capacity differs
 
         courses.append({
             "id": class_.id,
             "name": class_.name,
             "teacher_name": teacher_name,
             "time": "TBD",
-            "student_count": len(class_.students)
+            "student_count": student_count,
+            "is_enrolled": is_enrolled,
+            "is_full": is_full
         })
 
     return render_template("Student_Add_Courses.html", student_name=student.uni_id, courses=courses)
@@ -203,7 +209,21 @@ def enroll(course_id):
     db.session.add(new_enrollment)
     db.session.commit()
 
-    return redirect(url_for('student_view_courses'))
+    return redirect(url_for('student_add_courses'))
+
+@app.route('/unenroll/<int:course_id>')
+def unenroll(course_id):
+    if 'uni_id' not in session:
+        return redirect(url_for('student_login'))
+
+    student = User.query.filter_by(uni_id=session['uni_id']).first()
+
+    enrollment = Enrollment.query.filter_by(student_id=student.id, class_id=course_id).first()
+    if enrollment:
+        db.session.delete(enrollment)
+        db.session.commit()
+
+    return redirect(url_for('student_add_courses'))
 
 @app.route('/users')
 def show_users():
@@ -291,32 +311,24 @@ def teacher_dashboard():
     return render_template('Teacher_Dashboard.html', teacher_name=teacher.uni_id, courses=courses)
 
 
-@app.route('/admin-login', methods=['GET', 'POST'])
+@app.route('/admin-login')
 def admin_login():
     return render_template('Admin_Login_Page.html')
 
-@app.route('/admin-dashboard')
-def admin_dashboard():
-    return render_template('Admin_Dashboard.html')
+@app.route('/student-test-data')
+def student_test_data():
+    db.drop_all()
+    db.create_all()
 
-# optional utility
-@app.route('/student-check-data')
-def student_check_data():
-    students = User.query.filter_by(role='student').all()
-    courses = Class.query.all()
-    enrollments = Enrollment.query.all()
-    return f"Students: {[s.uni_id for s in students]}<br>Courses: {[c.name for c in courses]}<br>Enrollments: {[(e.student_id, e.class_id) for e in enrollments]}"
+    student = User(uni_id='teststudent', password='123', role='student')
+    math = Class(id=1, name='Math 101')
+    cs = Class(id=2, name='CS 106')
+    physics = Class(id=3, name='Physics 121')
 
-@app.route('/student-create-test-data')
-def student_create_test_data():
-    student = User.query.filter_by(uni_id='teststudent').first()
-    if not student:
-        student = User(uni_id='teststudent', password='123', role='student')
-        db.session.add(student)
-    else:
-        student.password = '123'
+    db.session.add_all([student, math, cs, physics])
     db.session.commit()
-    return "Test data ready"
+
+    return "Test student and course data created."
 
 
 if __name__ == '__main__':
