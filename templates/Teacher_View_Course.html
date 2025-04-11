@@ -7,19 +7,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <title>Your Course</title>
 </head>
-<body>
+<body id="teacherCourseBody">
     
-    <h1>Course Details</h1>
-    <h2>Course Name: {{ course_name }}</h2>
-    <h3>Course ID: {{ course_id }}</h3>
-    <p>Course Description:</p>
+    <!-- Page Title -->
+    <div class="university-header">
+        <h1>UC Merced</h1>
+        <h2>Course Details</h2>
+    </div>
 
-    <h2>Students Enrolled:</h2>
-    <ul>
-        {% for student in students %}
-            <li>{{ student.name }} (ID: {{ student.id }})</li>
-        {% endfor %}
-    </ul>
+
+    <!-- Container -->
+    <div class="container">
+        <h2>Welcome, {{ teacher_name }}!</h2>
+
+        <!-- Course Details -->
+        <div class="course-details">
+            <h2>Course Name: {{ course_name }}</h2>
+            <h3>Course ID: {{ course_id }}</h3>
+        </div>
+
+        <!-- Students Enrolled -->
+        <h2>Students Enrolled:</h2>
+        <ul>
+            {% for student in students %}
+                <li>{{ student.name }} (ID: {{ student.id }})</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    
 
 
 </body>
