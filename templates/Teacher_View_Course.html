@@ -3,9 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_courses.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <title>Your Course</title>
 </head>
 <body>
     
+    <h1>Course Details</h1>
+    <h2>Course Name: {{ course_name }}</h2>
+    <h3>Course ID: {{ course_id }}</h3>
+    <p>Course Description:</p>
+
+    <h2>Students Enrolled:</h2>
+    <ul>
+        {% for student in students %}
+            <li>{{ student.name }} (ID: {{ student.id }})</li>
+        {% endfor %}
+    </ul>
+
+
 </body>
 </html>
