@@ -291,9 +291,13 @@ def teacher_dashboard():
     return render_template('Teacher_Dashboard.html', teacher_name=teacher.uni_id, courses=courses)
 
 
-@app.route('/admin-login')
+@app.route('/admin-login', methods=['GET', 'POST'])
 def admin_login():
     return render_template('Admin_Login_Page.html')
+
+@app.route('/admin-dashboard')
+def admin_dashboard():
+    return render_template('Admin_Dashboard.html')
 
 # optional utility
 @app.route('/student-check-data')
