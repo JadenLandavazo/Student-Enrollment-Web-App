@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style_courses.css') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses</title>
+  <meta charset="UTF-8">
+  <title>Your Courses | UC Merced</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_forms.css') }}">
 </head>
-<body>
-    
+<body class = "student-view">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="welcome">Welcome {{ student_name }}!</div>
+    <h1>UC Merced</h1>
+    <div class="signout">
+      <a href="{{ url_for('home') }}">Sign out</a>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-bar">
+    <div class="tab">Your Courses</div>
+    <div class="tab inactive" onclick="location.href='{{ url_for('student_add_courses') }}'">Add Courses</div>
+  </div>
+
+  <!-- Course Table -->
+  <div class="course-container">
+    {% if courses %}
+      <table>
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Teacher</th>
+            <th>Time</th>
+            <th>Students Enrolled</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+            <tr>
+              <td>{{ course.name }}</td>
+              <td>{{ course.teacher_name }}</td>
+              <td>{{ course.time }}</td>
+              <td>{{ course.student_count }}/10</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="no-courses">You are not enrolled in any courses yet.</p>
+    {% endif %}
+  </div>
+
 </body>
 </html>
