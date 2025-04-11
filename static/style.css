@@ -121,7 +121,7 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    padding: 2rem;
+    padding: 1.5rem;
   }
   
   .login-card {
@@ -139,7 +139,7 @@
   .login-title {
     color: var(--primary-blue);
     font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     text-align: center;
   }
   
@@ -156,6 +156,17 @@
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: var(--dark-gray);
+  }
+
+  .login-page .center-wrapper { 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    /* max-height: 60vh; */
+    min-height: 30vh; 
+    padding-bottom: 2rem;
+    padding-top: 5rem;
   }
   
   /* Input Fields with Icons */

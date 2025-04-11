@@ -135,9 +135,42 @@ def student_login():
 def student_view_courses():
     return render_template('Student_View_Courses.html')
 
+# For Teacher Registration
+@app.route('/teacher-registration', methods=['GET', 'POST'])
+def teacher_registration():
+    if request.method == 'POST':
+        uni_id = request.form.get("uni_id")  
+        password = request.form.get("password")
+        
+        # Check if user exists
+        existing_user = User.query.filter_by(uni_id=uni_id).first()
+        if existing_user:
+            return render_template('Teacher_Registration_Page.html', message="User already exists!", uni_id=uni_id)  # Pass back the entered ID
+        
+        # Create new user
+        new_teacher = User(uni_id=uni_id, password=password, role='teacher')
+        db.session.add(new_teacher)
+        db.session.commit()
+        return redirect(url_for('teacher_login'))  # Redirect to login after success
+    
+    return render_template('Teacher_Registration_Page.html')
+
 # To make the teacher login run
-@app.route('/teacher-login')
+@app.route('/teacher-login', methods = ['GET', 'POST'])
 def teacher_login():
+    #iterate through the table
+    if request.method == 'POST':
+        uni_id = request.form.get("username")
+        password = request.form.get("password")
+
+        result = db.session.execute(text('SELECT * FROM user WHERE uni_id = :uni_id AND password = :password'), {'uni_id': uni_id, 'password': password})
+        
+        teacher = result.fetchone()
+
+        if teacher:
+            return redirect(url_for('Teacher_View_Courses'))
+        else:
+            return render_template('Teacher_Login_Page.html', error="Invalid username or password")
     return render_template('Teacher_Login_Page.html')
 
 # To make the admin run
