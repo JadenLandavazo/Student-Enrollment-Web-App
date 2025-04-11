@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Courses | UC Merced</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_forms.css') }}">
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="welcome">Welcome {{ student_name }}!</div>
+    <h1>UC Merced</h1>
+    <div class="signout">
+      <a href="{{ url_for('home') }}">Sign out</a>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-bar">
+    <div class="tab tab-inactive" onclick="location.href='{{ url_for('student_view_courses') }}'">Your Courses</div>
+    <div class="tab tab-active">Add Courses</div>
+  </div>
+
+  <!-- Courses Table -->
+  <div class="course-container">
+    {% if courses %}
+      <table>
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Teacher</th>
+            <th>Time</th>
+            <th>Students Enrolled</th>
+            <th>Add class</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+          <tr>
+            <td>{{ course.name }}</td>
+            <td>{{ course.teacher_name }}</td>
+            <td>{{ course.time }}</td>
+            <td>{{ course.student_count }}/10</td>
+            <td style="text-align: center;">
+              {% if course.is_enrolled %}
+                <form action="{{ url_for('unenroll', course_id=course.id) }}" method="GET">
+                  <button type="submit" class="remove-button">−</button>
+                </form>
+              {% elif not course.is_full %}
+                <form action="{{ url_for('enroll', course_id=course.id) }}" method="GET">
+                  <button type="submit" class="add-button">+</button>
+                </form>
+              {% else %}
+                <span class="full-icon">−</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="no-courses">No available courses to enroll in.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>
