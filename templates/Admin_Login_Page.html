@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_forms.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Login</title>
+</head>
+<body id="loginBody" class="login-page">
+
+  <!-- Page Title -->
+  <div class="university-header">
+    <h1>UC Merced</h1>
+  </div>
+
+  <!-- Login Form Card -->
+  <div class="center-wrapper">
+    <div class="login-container">
+      <div class="login-card">
+        <h2 class="login-title">Administrator Login</h2>
+
+        <form id="loginForm" class="login-form" action="{{ url_for('admin_login') }}" method="POST">
+          <!-- Username -->
+          <div class="form-group">
+            <label for="username">Admin ID</label>
+            <div class="input-icon-wrapper">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="username" name="username" placeholder="Enter your ID" required />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-icon-wrapper">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required />
+              <button type="button" id="showPassword" class="password-toggle" onclick="togglePasswordVisibility()">
+                <i id="eyeIcon" class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" /> Remember me
+            </label>
+            <a href="{{ url_for('forgot_password') }}" class="forgot-password">Forgot password?</a>
+        </div>
+
+          <!-- Login Button -->
+          <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
+
+          <!-- Footer -->
+          <div class="login-footer">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Toggle password visibility and update eye icon
+    function togglePasswordVisibility() {
+      const passwordField = document.getElementById("password");
+      const eyeIcon = document.getElementById("eyeIcon");
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordField.type = "password";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+      }
+    }
+
+    // Check username and password on login click
+    document.getElementById("loginButton").addEventListener("click", function () {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username && password) {
+        console.log("Login attempted with:", username, password);
+      } else {
+        alert("Please fill in all fields");
+      }
+    });
+  </script>
+</body>
+</html>
