@@ -238,15 +238,25 @@ def teacher_login():
         uni_id = request.form.get("username")
         password = request.form.get("password")
 
-        result = db.session.execute(text('SELECT * FROM user WHERE uni_id = :uni_id AND password = :password'), {'uni_id': uni_id, 'password': password})
-        
-        teacher = result.fetchone()
+        user = User.query.filter_by(uni_id=uni_id).first()
 
-        if teacher:
-            return redirect(url_for('teacher_view_course'))
-        else:
-            return render_template('Teacher_Login_Page.html', error="Invalid username or password")
+        if not user: 
+            error = "University ID not found."
+        elif user.password != password: 
+            error = "Incorrect password." 
+        else: 
+            session['uni_id'] = uni_id
+            # Check if user is a teacher
+            if user.role == 'teacher':
+                return redirect(url_for('teacher_view_course'))
+            else:
+                error = "You are not authorized to access this page."
+
     return render_template('Teacher_Login_Page.html')
+
+@app.route('/teacher-view-course')
+def teacher_view_course():
+    return render_template('Teacher_View_Course.html')
 
 @app.route('/admin-login')
 def admin_login():
