@@ -4,9 +4,9 @@
     --light-gray: #f5f5f5;
     --medium-gray: #e0e0e0;
     --dark-gray: #333;
-  }
+}
   
-  body {
+body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,39 +14,39 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-  }
+}
 
-   /* ========== UNIVERSITY HEADER ========== */
-   .university-header {
+/* ========== UNIVERSITY HEADER ========== */
+.university-header {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 1rem;
-  }
+}
   
-  .university-header h1 {
+.university-header h1 {
     font-size: 3rem;
     color: var(--primary-blue);
     margin: 0;
-  }
+}
   
-  .university-header h2 {
+.university-header h2 {
     font-size: 2.5rem;
     color: var(--primary-blue);
     margin: 0;
-  }
+}
 
   
-    /* ========== Teacher View Course ========== */
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        max-width: 60%;
-        max-height: 80vh;
-        margin: 0 auto;
-        transform: translateY(50%);
-    }
+/* ========== Teacher View Course ========== */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 60%;
+    max-height: 80vh;
+    margin: 0 auto;
+    transform: translateY(50%);
+}
