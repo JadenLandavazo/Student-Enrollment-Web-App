@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_courses.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Register | UC Merced</title>
+</head>
+<body id="dashboard-body" class="teacher-dashboard">
+
+    <!-- Header -->
+    <div class="teacher-header">
+        <h1>UC Merced</h1>
+        <h2>Course Details</h2>
+    </div>
+
+      <!-- Header -->
+  <div class="header">
+    <div class="welcome">Welcome {{ teacher_name }}!</div>
+    <h1>UC Merced</h1>
+    <div class="signout">
+      <a href="{{ url_for('home') }}">Sign out</a>
+    </div>
+  </div>
+
+  <!-- Ribbon -->
+  <div class="menu">
+    <div class="items">Your Courses</div>
+  </div>
+
+  <!-- Course Table -->
+  <div class="course-container">
+    {% if courses %}
+      <table>
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Teacher</th>
+            <th>Time</th>
+            <th>Students Enrolled</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+            <tr>
+              <td>{{ course.name }}</td>
+              <td>{{ course.teacher_name }}</td>
+              <td>{{ course.time }}</td>
+              <td>{{ course.student_count }}/10</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="no-courses">You are not enrolled in any courses yet.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>
