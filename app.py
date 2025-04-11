@@ -233,6 +233,8 @@ def teacher_registration():
 # To make the teacher login run
 @app.route('/teacher-login', methods = ['GET', 'POST'])
 def teacher_login():
+    error = None
+
     #iterate through the table
     if request.method == 'POST':
         uni_id = request.form.get("username")
@@ -244,19 +246,50 @@ def teacher_login():
             error = "University ID not found."
         elif user.password != password: 
             error = "Incorrect password." 
+        elif user.role != 'teacher': 
+            error = "You are not authorized to access this page."
         else: 
             session['uni_id'] = uni_id
-            # Check if user is a teacher
-            if user.role == 'teacher':
-                return redirect(url_for('teacher_view_course'))
-            else:
-                error = "You are not authorized to access this page."
+            return redirect(url_for('teacher_dashboard'))
 
-    return render_template('Teacher_Login_Page.html')
+    return render_template('Teacher_Login_Page.html', error=error)
 
 @app.route('/teacher-view-course')
 def teacher_view_course():
     return render_template('Teacher_View_Course.html')
+
+@app.route('/teacher-dashboard', methods=['GET', 'POST'])
+def teacher_dashboard():
+    uni_id = session.get('uni_id')
+
+    if not uni_id:
+        return redirect(url_for('teacher_login'))
+
+    teacher = User.query.filter_by(uni_id=uni_id, role='teacher').first()
+    if not teacher:
+        return redirect(url_for('teacher_login')) 
+
+    enrolled_classes = Class.query \
+        .join(TeacherClass, Class.id == TeacherClass.class_id) \
+        .filter(TeacherClass.teacher_id == teacher.id) \
+        .all()
+    
+    courses = []
+    for class_ in enrolled_classes:
+        teacher_name = "TBA"
+        if class_.teachers:
+            assigned_teacher = class_.teachers[0].teacher
+            teacher_name = assigned_teacher.uni_id
+
+        courses.append({
+            "name": class_.name,
+            "teacher_name": teacher_name,
+            "time": "TBD",
+            "student_count": len(class_.students)
+        })
+
+    return render_template('Teacher_Dashboard.html', teacher_name=teacher.uni_id, courses=courses)
+
 
 @app.route('/admin-login')
 def admin_login():
@@ -280,6 +313,7 @@ def student_create_test_data():
         student.password = '123'
     db.session.commit()
     return "Test data ready"
+
 
 if __name__ == '__main__':
     with app.app_context():

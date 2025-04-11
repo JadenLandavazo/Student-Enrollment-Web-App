@@ -18,21 +18,36 @@ body {
 
 /* ========== UNIVERSITY HEADER ========== */
 .university-header {
-    text-align: center;
     padding-top: 2rem;
     padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
   
-.university-header h1 {
-    font-size: 3rem;
-    color: var(--primary-blue);
-    margin: 0;
-}
-  
-.university-header h2 {
+.university-header h1, .university-header h2 {
     font-size: 2.5rem;
     color: var(--primary-blue);
     margin: 0;
+    text-align: center;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.signout, .welcome {
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    margin: 5px 0;
+}
+
+.welcome {
+    justify-content: flex-start;
+}
+
+.signout {
+    justify-content: flex-end;
 }
 
   
