@@ -9,31 +9,42 @@
 </head>
 <body id="teacherCourseBody">
     
-    <!-- Page Title -->
+    <!-- Header -->
     <div class="university-header">
-        <h1>UC Merced</h1>
-        <h2>Course Details</h2>
+        <div class="welcome">Welcome {{ teacher_name }}!</div>
+            <h1>UC Merced</h1>
+        <div class="signout">
+            <a href="{{ url_for('home') }}">Sign out</a>
+        </div>
+    </div>
+    
+    <!-- Ribbon -->
+    <div class="menu">
+        <div class="items">{{course.id}}: {{ course.name }}</div>
     </div>
 
 
     <!-- Container -->
-    <div class="container">
-        <h2>Welcome, {{ teacher_name }}!</h2>
-
-        <!-- Course Details -->
-        <div class="course-details">
-            <h2>Course Name: {{ course_name }}</h2>
-            <h3>Course ID: {{ course_id }}</h3>
-        </div>
-
-        <!-- Students Enrolled -->
-        <h2>Students Enrolled:</h2>
-        <ul>
-            {% for student in students %}
-                <li>{{ student.name }} (ID: {{ student.id }})</li>
-            {% endfor %}
-        </ul>
-
+    <div class="student_list">
+        <thead> 
+            <tr>
+                <th> Student Name </th>
+                <th> Grade </th>
+            </tr>
+            <tbody> 
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('update_grade', student_id=student.id) }}">
+                            <input type="text" name="grade" value="{{ student.grade }}" 
+                                   onkeydown="if(event.key === 'Enter') { this.form.submit(); return false; }">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
     </div>
     
 
