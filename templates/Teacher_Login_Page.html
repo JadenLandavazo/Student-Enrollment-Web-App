@@ -12,6 +12,8 @@
   <!-- Page Title -->
   <div class="university-header">
     <h1>UC Merced</h1>
+    <h2>Teacher Login</h2>
+
   </div>
 
   <!-- Login Form Card -->
@@ -19,6 +21,12 @@
     <div class="login-container">
       <div class="login-card">
         <h2 class="login-title">Teacher Login</h2>
+          <!-- Show login error if exists -->
+          {% if error %}
+            <p style="color: red; font-weight: bold; text-align: center; margin-bottom: 1rem;">
+              {{ error }}
+            </p>
+          {% endif %}
 
         <form id="loginForm" class="login-form" action="{{ url_for('teacher_login') }}" method="POST">
           <!-- Username -->
@@ -26,7 +34,7 @@
             <label for="username">University ID</label>
             <div class="input-icon-wrapper">
               <i class="fas fa-user input-icon"></i>
-              <input type="text" id="username" name="username" placeholder="Enter your ID" required />
+              <input type="text" id="username" name="username" placeholder="Enter your ID" value="{{ request.form.get('username', '') }}" required />
             </div>
           </div>
 
