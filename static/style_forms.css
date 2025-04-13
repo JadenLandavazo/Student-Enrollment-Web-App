@@ -5,6 +5,9 @@
   --medium-gray: #e0e0e0;
   --dark-gray: #333;
 }
+html, body {
+  overflow-x: hidden;
+}
 
 body {
   margin: 0;
