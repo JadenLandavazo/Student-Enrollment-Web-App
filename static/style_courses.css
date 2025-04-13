@@ -52,16 +52,57 @@ body {
 }
 
 /* ========== Teacher Ribbon ========== */
-.menu { 
+.menu {
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Vertically center the items */
+    gap: 12px; /* Add spacing between the items */
+    background-color: var(--primary-blue); /* Background color */
+    padding: 10px 20px; /* Padding around the menu */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0; /* No margin */
+    height: auto; /* Allow the height to adjust automatically */
+    white-space: nowrap; /* Prevent wrapping of text/content */
+}
+
+.menu .item {
+    display: inline-flex; /* Ensure items behave like inline elements */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    padding: 8px 16px; /* Add padding inside each item */
+    background-color: var(--secondary-blue); /* Optional: Different background for items */
+    border-radius: 3px; /* Rounded corners for items */
+    cursor: pointer; /* Indicate clickable items */
+    color: white; /* Text color */
+    font-size: 14px; /* Font size */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.active{ 
+    left: 0;
+    background-color: #50b2f1;
+    color: white;
+    font-weight: normal;
+}
+
+.active:hover {
+    background-color: lightblue;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ========== Table Container ========== */
+.table-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-blue);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 20px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 75%;
+    margin: 20px auto;
 }
+
 /* ========== Teacher Dasboard ========== */
 .no-courses { 
     display: flex;
@@ -73,14 +114,11 @@ body {
 }
   
 .course-table { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 60%;
+    max-width: 70%;
     margin: 20px auto;
     table-layout: auto;
     border-collapse: collapse;
@@ -98,19 +136,24 @@ body {
     text-align: center;
 }
 
+.course-table thead tbody { 
+    display: block;
+    overflow: auto;
+}
+
+
+
 /* ========== Teacher View Course ========== */
 .student_list { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 60%;
+    max-width: 70%;
     margin: 20px auto;
-    border-color: black;
-}
+    table-layout: auto;
+    border-collapse: collapse;
+    }
 
 .student_list td, .student_list th {
     border: 1px solid var(--medium-gray);
@@ -123,4 +166,3 @@ body {
     font-weight: bold;
     text-align: center;
 }
-

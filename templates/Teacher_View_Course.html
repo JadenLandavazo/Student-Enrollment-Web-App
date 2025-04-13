@@ -20,31 +20,34 @@
     
     <!-- Ribbon -->
     <div class="menu">
-        <div class="items">{{course.id}}: {{ course.name }}</div>
+        <div class="item active" onclick="location.href='{{ url_for('teacher_dashboard') }}'">Teacher Dashboard</div>
+        <div class="item active">{{ class_.name }}</div>
     </div>
 
 
     <!-- Container -->
-    <div class="student_list">
-        <thead> 
-            <tr>
-                <th> Student Name </th>
-                <th> Grade </th>
-            </tr>
+    <div class="table-container">
+        <table class="student_list">
+            <thead> 
+                <tr>
+                    <th> Student Name </th>
+                    <th> Grade </th>
+                </tr>
+            </thead>
             <tbody> 
                 {% for student in students %}
                 <tr>
                     <td>{{ student.name }}</td>
                     <td>
-                        <form method="POST" action="{{ url_for('update_grade', student_id=student.id) }}">
+                        <form method="POST" action="{{ url_for('update_grade', student_id=student.student_id) }}">
                             <input type="text" name="grade" value="{{ student.grade }}" 
-                                   onkeydown="if(event.key === 'Enter') { this.form.submit(); return false; }">
+                                onkeydown="if(event.key === 'Enter') { this.form.submit(); return false; }">
                         </form>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
-        </thead>
+        </table>
     </div>
     
 

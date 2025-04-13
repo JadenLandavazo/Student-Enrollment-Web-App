@@ -59,6 +59,9 @@ class Enrollment(db.Model):
 class TeacherClass(db.Model):
     teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     class_id = db.Column(db.Integer, db.ForeignKey('class.id'), primary_key=True)
+    day = db.Column(db.String(50), nullable=False)
+    time = db.Column(db.String(50), nullable=False)
+    max_seats = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f'<TeacherClass Teacher:{self.teacher_id} Class:{self.class_id}>'
@@ -274,9 +277,39 @@ def teacher_login():
 
     return render_template('Teacher_Login_Page.html', error=error)
 
-@app.route('/teacher-view-course')
-def teacher_view_course():
-    return render_template('Teacher_View_Course.html')
+
+@app.route('/teacher-view-course/<int:class_id>')
+def teacher_view_course(class_id):
+
+    class_ = Class.query.get_or_404(class_id)
+
+    teacher_class = class_.teachers[0]
+    teacher = User.query.get(teacher_class.teacher_id)
+
+    # Get enrolled students and their grades
+    enrollments = Enrollment.query.filter_by(class_id=class_id).all()
+    students = []
+    for enrollment in enrollments:
+        student = User.query.get(enrollment.student_id)
+        students.append({
+            "student_id": student.id,
+            "name": student.uni_id,
+            "grade": enrollment.grade
+        })
+
+    return render_template('Teacher_View_Course.html', class_ = class_, students=students, teacher_name= teacher.uni_id)
+@app.route('/update-grade/<int:student_id>', methods=['POST'])
+def update_grade(student_id):
+    new_grade = request.form.get('grade')
+    
+    # Find the enrollment and update the grade
+    enrollment = Enrollment.query.filter_by(student_id=student_id).first()
+    if enrollment:
+        enrollment.grade = new_grade
+        db.session.commit()
+    
+    # Redirect back (or adjust based on where you're coming from)
+    return redirect(request.referrer)
 
 @app.route('/teacher-dashboard', methods=['GET', 'POST'])
 def teacher_dashboard():
@@ -289,26 +322,25 @@ def teacher_dashboard():
     if not teacher:
         return redirect(url_for('teacher_login')) 
 
-    enrolled_classes = Class.query \
-        .join(TeacherClass, Class.id == TeacherClass.class_id) \
-        .filter(TeacherClass.teacher_id == teacher.id) \
-        .all()
-    
+    teacher_classes = TeacherClass.query.filter_by(teacher_id=teacher.id).all()
+
     courses = []
-    for class_ in enrolled_classes:
-        teacher_name = "TBA"
-        if class_.teachers:
-            assigned_teacher = class_.teachers[0].teacher
-            teacher_name = assigned_teacher.uni_id
+    for entry in teacher_classes:
+        class_ = Class.query.get(entry.class_id)
+       
 
         courses.append({
+            "id": class_.id,
             "name": class_.name,
-            "teacher_name": teacher_name,
-            "time": "TBD",
-            "student_count": len(class_.students)
+            "teacher_name": teacher.uni_id,
+            "time": entry.time,
+            "day": entry.day,
+            "student_count": len(class_.students),
+            "max_count": entry.max_seats,
         })
 
-    return render_template('Teacher_Dashboard.html', teacher_name=teacher.uni_id, courses=courses)
+    return render_template('teacher_dashboard.html', teacher_name=teacher.uni_id, teacher_courses=courses)
+
 
 
 @app.route('/admin-login')
@@ -330,6 +362,81 @@ def student_test_data():
 
     return "Test student and course data created."
 
+@app.route('/create-test-data')
+def create_test_data():
+    # Create a teacher
+    teacher = User.query.filter_by(uni_id='test_teacher').first()
+    if not teacher:
+        teacher = User(uni_id='test_teacher', password='123', role='teacher')
+        db.session.add(teacher)
+    else:
+        teacher.password = '123'
+
+    # Create students
+    student3 = User.query.filter_by(uni_id='student3').first()
+    if not student3:
+        student3 = User(uni_id='student3', password='123', role='student')
+        db.session.add(student3)
+    else:
+        student3.password = '123'
+
+    student4 = User.query.filter_by(uni_id='student4').first()
+    if not student4:
+        student4 = User(uni_id='student4', password='123', role='student')
+        db.session.add(student4)
+    else:
+        student4.password = '1233'
+
+    # Create classes
+    math_class = Class.query.filter_by(name="Math 101").first()
+    if not math_class:
+        math_class = Class(name="Math 101", description="Intro to Mathematics")
+        db.session.add(math_class)
+
+    science_class = Class.query.filter_by(name="Science 201").first()
+    if not science_class:
+        science_class = Class(name="Science 201", description="Intro to Science")
+        db.session.add(science_class)
+
+    db.session.commit()
+
+    # Assign classes to the teacher
+    teacher_class1 = TeacherClass.query.filter_by(teacher_id=teacher.id, class_id=math_class.id).first()
+    if not teacher_class1:
+        teacher_class1 = TeacherClass(
+            teacher_id=teacher.id,
+            class_id=math_class.id,
+            day="Monday",
+            time="10:00 AM",
+            max_seats=30
+        )
+        db.session.add(teacher_class1)
+
+    teacher_class2 = TeacherClass.query.filter_by(teacher_id=teacher.id, class_id=science_class.id).first()
+    if not teacher_class2:
+        teacher_class2 = TeacherClass(
+            teacher_id=teacher.id,
+            class_id=science_class.id,
+            day="Wednesday",
+            time="2:00 PM",
+            max_seats=25
+        )
+        db.session.add(teacher_class2)
+
+    # Enroll students in classes
+    enrollment1 = Enrollment.query.filter_by(student_id=student3.id, class_id=math_class.id).first()
+    if not enrollment1:
+        enrollment1 = Enrollment(student_id=student3.id, class_id=math_class.id, grade=65)
+        db.session.add(enrollment1)
+
+    enrollment2 = Enrollment.query.filter_by(student_id=student4.id, class_id=science_class.id).first()
+    if not enrollment2:
+        enrollment2 = Enrollment(student_id=student4.id, class_id=science_class.id, grade=70)
+        db.session.add(enrollment2)
+
+    db.session.commit()
+
+    return "Test data created successfully!"
 
 if __name__ == '__main__':
     with app.app_context():
