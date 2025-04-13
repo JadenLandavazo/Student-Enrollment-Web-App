@@ -275,7 +275,9 @@ def teacher_login():
             session['uni_id'] = uni_id
             return redirect(url_for('teacher_dashboard'))
 
-    return render_template('Teacher_Login_Page.html', error=error)
+        return render_template('Teacher_Login_Page.html', error=error)
+
+    return render_template('Teacher_Login_Page.html')
 
 
 @app.route('/teacher-view-course/<int:class_id>')
