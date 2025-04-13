@@ -10,7 +10,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_admin import Admin
+from flask_admin import Admin, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 
 # create a new sql database uri 
@@ -67,17 +67,44 @@ class TeacherClass(db.Model):
         return f'<TeacherClass Teacher:{self.teacher_id} Class:{self.class_id}>'
 
 # Flask-Admin setup
-admin = Admin(app, name='School Admin', template_mode='bootstrap3')
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Class, db.session))
-admin.add_view(ModelView(Enrollment, db.session))
-admin.add_view(ModelView(TeacherClass, db.session))
+class SecureModelView(ModelView):
+    def is_accessible(self):
+        return session.get('role') == 'admin'
 
-# routes
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('admin_login'))
 
+class SecureAdminIndexView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        if session.get('role') != 'admin':
+            return redirect(url_for('admin_login'))
+        return super().index()
+
+# Flask-Admin setup
+admin = Admin(app, name='School Admin', template_mode='bootstrap3',
+              index_view=SecureAdminIndexView(url='/admin/'))
+admin.add_view(SecureModelView(User, db.session))
+admin.add_view(SecureModelView(Class, db.session))
+admin.add_view(SecureModelView(Enrollment, db.session))
+admin.add_view(SecureModelView(TeacherClass, db.session))
+
+# Routes
 @app.route('/')
 def home():
     return render_template('Home.html')
+
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        if username == 'admin' and password == '1':
+            session['role'] = 'admin'
+            return redirect(url_for('admin.index'))
+        return render_template('Admin_Login_Page.html', error='Invalid credentials')
+    return render_template('Admin_Login_Page.html')
 
 @app.route('/student-registration', methods=['GET', 'POST'])
 def student_registration():
@@ -343,11 +370,6 @@ def teacher_dashboard():
 
     return render_template('teacher_dashboard.html', teacher_name=teacher.uni_id, teacher_courses=courses)
 
-
-
-@app.route('/admin-login')
-def admin_login():
-    return render_template('Admin_Login_Page.html')
 
 @app.route('/student-test-data')
 def student_test_data():
