@@ -39,7 +39,7 @@
                 <tr>
                     <td>{{ student.name }}</td>
                     <td>
-                        <form method="POST" action="{{ url_for('update_grade', student_id=student.student_id) }}">
+                        <form method="POST" action="{{ url_for('update_grade', student_id=student.student_id, class_id = class_.id) }}">
                             <input type="text" name="grade" value="{{ student.grade }}" 
                                 onkeydown="if(event.key === 'Enter') { this.form.submit(); return false; }">
                         </form>

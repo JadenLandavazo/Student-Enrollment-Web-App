@@ -334,12 +334,12 @@ def teacher_view_course(class_id):
         })
 
     return render_template('Teacher_View_Course.html', class_ = class_, students=students, teacher_name= teacher.uni_id)
-@app.route('/update-grade/<int:student_id>', methods=['POST'])
-def update_grade(student_id):
+@app.route('/update-grade/<int:student_id>/<int:class_id>', methods=['POST'])
+def update_grade(student_id, class_id):
     new_grade = request.form.get('grade')
     
     # Find the enrollment and update the grade
-    enrollment = Enrollment.query.filter_by(student_id=student_id).first()
+    enrollment = Enrollment.query.filter_by(student_id=student_id, class_id=class_id).first()
     if enrollment:
         enrollment.grade = new_grade
         db.session.commit()
