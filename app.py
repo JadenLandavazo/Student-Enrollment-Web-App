@@ -94,17 +94,30 @@ admin.add_view(SecureModelView(TeacherClass, db.session))
 def home():
     return render_template('Home.html')
 
+@app.route('/admin-setup')
+def admin_setup():
+    existing = User.query.filter_by(uni_id='admin').first()
+    if not existing:
+        admin = User(uni_id='admin', password='1', role='admin')
+        db.session.add(admin)
+        db.session.commit()
+    return "Admin user added!"
+
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        if username == 'admin' and password == '1':
+        user = User.query.filter_by(uni_id=username, role='admin').first()
+
+        if user and user.password == password:
             session['role'] = 'admin'
             return redirect(url_for('admin.index'))
         return render_template('Admin_Login_Page.html', error='Invalid credentials')
+
     return render_template('Admin_Login_Page.html')
+
 
 @app.route('/student-registration', methods=['GET', 'POST'])
 def student_registration():
@@ -143,19 +156,20 @@ def student_login():
 
     return render_template('Student_Login_Page.html')
 
-@app.route('/forgot-password', methods=['GET', 'POST'])
-def forgot_password():
+@app.route('/forgot-password/<role>', methods=['GET', 'POST'])
+def forgot_password(role):
     message = ""
     if request.method == 'POST':
         uni_id = request.form.get('uni_id')
-        user = User.query.filter_by(uni_id=uni_id).first()
+        user = User.query.filter_by(uni_id=uni_id, role=role).first()
 
         if user:
             message = f"Your password is: {user.password}"
         else:
             message = "No account found with that University ID."
 
-    return render_template('Forgot_Password_Page.html', message=message)
+    return render_template('Forgot_Password_Page.html', message=message, role=role)
+
 
 @app.route('/student-view-courses')
 def student_view_courses():
