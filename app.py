@@ -69,17 +69,20 @@ class TeacherClass(db.Model):
 # Flask-Admin setup
 class SecureModelView(ModelView):
     def is_accessible(self):
+        print("Role in session:", session.get('role'))  # Debugging print
         return session.get('role') == 'admin'
 
     def inaccessible_callback(self, name, **kwargs):
+        print("Inaccessible callback triggered")  # Debugging print
         return redirect(url_for('admin_login'))
+
 class TeacherClassModelView(SecureModelView):
     form_columns = ['teacher_id', 'class_id', 'day', 'time', 'max_seats']
 class GradeModelView(SecureModelView):
     form_columns = ['student_id', 'class_id', 'grade']
 class UserModelView(SecureModelView):
-    form_columns = ['id', 'uni_id', 'password', 'role']
-    
+    form_columns = ['uni_id', 'password', 'role']
+
 class SecureAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
@@ -90,7 +93,7 @@ class SecureAdminIndexView(AdminIndexView):
 # Flask-Admin setup
 admin = Admin(app, name='School Admin', template_mode='bootstrap3',
               index_view=SecureAdminIndexView(url='/admin/'))
-admin.add_view(UserModelView(User, db.session))
+admin.add_view(SecureModelView(User, db.session))
 admin.add_view(SecureModelView(Class, db.session))
 admin.add_view(GradeModelView(Enrollment, db.session))
 admin.add_view(TeacherClassModelView(TeacherClass, db.session))
@@ -207,7 +210,6 @@ def student_add_courses():
 
     enrolled_ids = [en.class_id for en in student.student_classes]
     all_classes = Class.query.all()
-
     courses = []
     for class_ in all_classes:
         teacher_name = "TBA"
@@ -242,7 +244,7 @@ def enroll(course_id):
     if existing:
         return redirect(url_for('student_add_courses'))
 
-    new_enrollment = Enrollment(student_id=student.id, class_id=course_id)
+    new_enrollment = Enrollment(student_id=student.id, class_id=course_id, grade=0.00)
     db.session.add(new_enrollment)
     db.session.commit()
 
