@@ -52,15 +52,15 @@
 
           <!-- Options -->
           <div class="form-options">
-            <a href="{{ url_for('forgot_password') }}" class="forgot-password">Forgot password?</a>
-        </div>
+            <a href="{{ url_for('forgot_password', role='teacher') }}" class="forgot-password">Forgot password?</a>
+          </div>
 
           <!-- Login Button -->
           <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
 
           <!-- Footer -->
           <div class="login-footer">
-            <p>Don't have an account? <a href="{{ url_for('teacher_registration') }}">Create Account</a></p>
+            <p>Don't have an account? <a href="{{ url_for('teacher_registration', role='teacher') }}">Create Account</a></p>
           </div>
         </form>
       </div>
