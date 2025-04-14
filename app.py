@@ -73,7 +73,12 @@ class SecureModelView(ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('admin_login'))
-
+class TeacherClassModelView(SecureModelView):
+    form_columns = ['teacher_id', 'class_id', 'day', 'time', 'max_seats']
+class GradeModelView(SecureModelView):
+    form_columns = ['student_id', 'class_id', 'grade']
+class UserModelView(SecureModelView):
+    form_columns = ['id', 'uni_id', 'password', 'role']
 class SecureAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
@@ -84,10 +89,10 @@ class SecureAdminIndexView(AdminIndexView):
 # Flask-Admin setup
 admin = Admin(app, name='School Admin', template_mode='bootstrap3',
               index_view=SecureAdminIndexView(url='/admin/'))
-admin.add_view(SecureModelView(User, db.session))
+admin.add_view(UserModelView(User, db.session))
 admin.add_view(SecureModelView(Class, db.session))
-admin.add_view(SecureModelView(Enrollment, db.session))
-admin.add_view(SecureModelView(TeacherClass, db.session))
+admin.add_view(GradeModelView(Enrollment, db.session))
+admin.add_view(TeacherClassModelView(TeacherClass, db.session))
 
 # Routes
 @app.route('/')
