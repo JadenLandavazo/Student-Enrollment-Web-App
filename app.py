@@ -79,6 +79,7 @@ class GradeModelView(SecureModelView):
     form_columns = ['student_id', 'class_id', 'grade']
 class UserModelView(SecureModelView):
     form_columns = ['id', 'uni_id', 'password', 'role']
+    
 class SecureAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
