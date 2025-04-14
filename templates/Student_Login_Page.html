@@ -18,7 +18,7 @@
   <!-- Login Form Card -->
   <div class="login-container">
     <div class="login-card">
-      <h2 class="login-title">Login</h2>
+      <h2 class="login-title">Student Login</h2>
 
       <!-- Display error message from backend -->
       {% if error %}
@@ -50,7 +50,7 @@
 
         <!-- Options -->
         <div class="form-options">
-          <a href="{{ url_for('forgot_password') }}" class="forgot-password">Forgot password?</a>
+          <a href="{{ url_for('forgot_password', role='student') }}" class="forgot-password">Forgot password?</a>
         </div>
 
         <!-- Login Button -->
