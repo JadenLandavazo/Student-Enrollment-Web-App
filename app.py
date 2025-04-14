@@ -94,30 +94,17 @@ admin.add_view(SecureModelView(TeacherClass, db.session))
 def home():
     return render_template('Home.html')
 
-@app.route('/admin-setup')
-def admin_setup():
-    existing = User.query.filter_by(uni_id='admin').first()
-    if not existing:
-        admin = User(uni_id='admin', password='1', role='admin')
-        db.session.add(admin)
-        db.session.commit()
-    return "Admin user added!"
-
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        user = User.query.filter_by(uni_id=username, role='admin').first()
-
-        if user and user.password == password:
+        if username == 'admin' and password == '1':
             session['role'] = 'admin'
             return redirect(url_for('admin.index'))
         return render_template('Admin_Login_Page.html', error='Invalid credentials')
-
     return render_template('Admin_Login_Page.html')
-
 
 @app.route('/student-registration', methods=['GET', 'POST'])
 def student_registration():
