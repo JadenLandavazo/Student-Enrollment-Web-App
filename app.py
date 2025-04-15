@@ -186,7 +186,7 @@ def student_view_courses():
         teacher_info = class_.teachers[0] if class_.teachers else None
 
         teacher_name = teacher_info.teacher.uni_id if teacher_info else "TBA"
-        class_time = f"{teacher_info.day}, {teacher_info.time}" if teacher_info else "TBD"
+        class_time = f"{teacher_info.time}" if teacher_info else "TBD"
 
         max_seats = teacher_info.max_seats if teacher_info else 30  # Default fallback value
 
@@ -223,7 +223,7 @@ def student_add_courses():
 
         # Dynamically fetch the teacher's information
         teacher_name = teacher_info.teacher.uni_id if teacher_info else "TBA"
-        class_time = f"{teacher_info.day}, {teacher_info.time}" if teacher_info else "TBD"
+        class_time = f"{teacher_info.time}" if teacher_info else "TBD"
 
         # Dynamically fetch max_seats from TeacherClass (if a teacher exists for the class)
         max_seats = teacher_info.max_seats if teacher_info else 30  # Default to 30 if no teacher
