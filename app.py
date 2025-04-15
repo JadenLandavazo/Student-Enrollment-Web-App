@@ -12,7 +12,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-
 # create a new sql database uri 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school.db'
@@ -28,8 +27,8 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
     role = db.Column(db.String(20), nullable=False)  # "student", "teacher", "admin"
 
-    student_classes = db.relationship('Enrollment', backref='student', lazy=True)
-    teacher_classes = db.relationship('TeacherClass', backref='teacher', lazy=True)
+    student_classes = db.relationship('Enrollment', backref='student', lazy=True, passive_deletes=True)
+    teacher_classes = db.relationship('TeacherClass', backref='teacher', lazy=True, passive_deletes=True)
 
     def __repr__(self):
         return f'<User {self.uni_id}>'
@@ -80,8 +79,6 @@ class TeacherClassModelView(SecureModelView):
     form_columns = ['teacher_id', 'class_id', 'day', 'time', 'max_seats']
 class GradeModelView(SecureModelView):
     form_columns = ['student_id', 'class_id', 'grade']
-class UserModelView(SecureModelView):
-    form_columns = ['uni_id', 'password', 'role']
 
 class SecureAdminIndexView(AdminIndexView):
     @expose('/')
