@@ -409,81 +409,53 @@ def student_test_data():
 
     return "Test student and course data created."
 
-@app.route('/create-test-data')
-def create_test_data():
-    # Create a teacher
-    teacher = User.query.filter_by(uni_id='test_teacher').first()
-    if not teacher:
-        teacher = User(uni_id='test_teacher', password='123', role='teacher')
-        db.session.add(teacher)
-    else:
-        teacher.password = '123'
 
-    # Create students
-    student3 = User.query.filter_by(uni_id='student3').first()
-    if not student3:
-        student3 = User(uni_id='student3', password='123', role='student')
-        db.session.add(student3)
-    else:
-        student3.password = '123'
+@app.route('/sample-data')
+def init_sample_data():
+    db.drop_all()
+    db.create_all()
+    # Create users
+    students = [
+        User(uni_id='Jaden Landavazo', password='pass1', role='student'),
+        User(uni_id='Adrian Botello', password='pass2', role='student'),
+        User(uni_id='Toshinori Oizumi', password='pass3', role='student'),
+        User(uni_id='Reykjavik Salvador', password='pass4', role='student'),
+        User(uni_id='John Doe', password='pass5', role='student')
+    ]
 
-    student4 = User.query.filter_by(uni_id='student4').first()
-    if not student4:
-        student4 = User(uni_id='student4', password='123', role='student')
-        db.session.add(student4)
-    else:
-        student4.password = '1233'
+    teacher = User(uni_id='John Pork', password='teachpass', role='teacher')
+    admin = User(uni_id='admin1', password='adminpass', role='admin')
+
+    db.session.add_all(students + [teacher, admin])
+    db.session.commit()
 
     # Create classes
-    math_class = Class.query.filter_by(name="Math 101").first()
-    if not math_class:
-        math_class = Class(name="Math 101", description="Intro to Mathematics")
-        db.session.add(math_class)
-
-    science_class = Class.query.filter_by(name="Science 201").first()
-    if not science_class:
-        science_class = Class(name="Science 201", description="Intro to Science")
-        db.session.add(science_class)
-
+    class1 = Class(name='Math 101', description='Intro to Math')
+    class2 = Class(name='History 201', description='World History Overview')
+    db.session.add_all([class1, class2])
     db.session.commit()
 
-    # Assign classes to the teacher
-    teacher_class1 = TeacherClass.query.filter_by(teacher_id=teacher.id, class_id=math_class.id).first()
-    if not teacher_class1:
-        teacher_class1 = TeacherClass(
-            teacher_id=teacher.id,
-            class_id=math_class.id,
-            day="Monday",
-            time="10:00 AM",
-            max_seats=30
-        )
-        db.session.add(teacher_class1)
-
-    teacher_class2 = TeacherClass.query.filter_by(teacher_id=teacher.id, class_id=science_class.id).first()
-    if not teacher_class2:
-        teacher_class2 = TeacherClass(
-            teacher_id=teacher.id,
-            class_id=science_class.id,
-            day="Wednesday",
-            time="2:00 PM",
-            max_seats=25
-        )
-        db.session.add(teacher_class2)
+    # Assign teacher to classes
+    teacher_class1 = TeacherClass(teacher_id=teacher.id, class_id=class1.id, day='MW', time='MW 10:00-11:15 AM', max_seats=30)
+    teacher_class2 = TeacherClass(teacher_id=teacher.id, class_id=class2.id, day='TT', time='TT 1:00-2:15 PM', max_seats=30)
+    db.session.add_all([teacher_class1, teacher_class2])
+    db.session.commit()
 
     # Enroll students in classes
-    enrollment1 = Enrollment.query.filter_by(student_id=student3.id, class_id=math_class.id).first()
-    if not enrollment1:
-        enrollment1 = Enrollment(student_id=student3.id, class_id=math_class.id, grade=65)
-        db.session.add(enrollment1)
-
-    enrollment2 = Enrollment.query.filter_by(student_id=student4.id, class_id=science_class.id).first()
-    if not enrollment2:
-        enrollment2 = Enrollment(student_id=student4.id, class_id=science_class.id, grade=70)
-        db.session.add(enrollment2)
-
+    enrollments = [
+        Enrollment(student_id=students[0].id, class_id=class1.id, grade=85.0),
+        Enrollment(student_id=students[1].id, class_id=class1.id, grade=90.5),
+        Enrollment(student_id=students[2].id, class_id=class2.id, grade=78.0),
+        Enrollment(student_id=students[3].id, class_id=class2.id, grade=88.5),
+        Enrollment(student_id=students[4].id, class_id=class1.id, grade=55.8)
+    ]
+    db.session.add_all(enrollments)
     db.session.commit()
 
-    return "Test data created successfully!"
+    return "✅ Sample data initialized!"
+
+
+
 
 if __name__ == '__main__':
     with app.app_context():
