@@ -79,7 +79,9 @@ class TeacherClassModelView(SecureModelView):
     form_columns = ['teacher_id', 'class_id', 'day', 'time', 'max_seats']
 class GradeModelView(SecureModelView):
     form_columns = ['student_id', 'class_id', 'grade']
-
+class UserModelView(SecureModelView):
+    form_columns = ['id', 'uni_id','password','role']
+    
 class SecureAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
@@ -90,7 +92,7 @@ class SecureAdminIndexView(AdminIndexView):
 # Flask-Admin setup
 admin = Admin(app, name='School Admin', template_mode='bootstrap3',
               index_view=SecureAdminIndexView(url='/admin/'))
-admin.add_view(SecureModelView(User, db.session))
+admin.add_view(UserModelView(User, db.session))
 admin.add_view(SecureModelView(Class, db.session))
 admin.add_view(GradeModelView(Enrollment, db.session))
 admin.add_view(TeacherClassModelView(TeacherClass, db.session))
@@ -182,18 +184,23 @@ def student_view_courses():
     courses = []
     for class_ in enrolled_classes:
         teacher_name = "TBA"
+        class_time = "TBD"
+
         if class_.teachers:
-            teacher = class_.teachers[0].teacher
-            teacher_name = teacher.uni_id
+            teacher_link = class_.teachers[0]
+            teacher_name = teacher_link.teacher.uni_id
+            class_time = f"{teacher_link.day}, {teacher_link.time}"
 
         courses.append({
+            "id": class_.id,
             "name": class_.name,
             "teacher_name": teacher_name,
-            "time": "TBD",
+            "time": class_time,
             "student_count": len(class_.students)
         })
 
     return render_template('Student_View_Courses.html', student_name=student.uni_id, courses=courses)
+
 
 @app.route('/student-add-courses')
 def student_add_courses():
@@ -205,30 +212,35 @@ def student_add_courses():
     if not student:
         return redirect(url_for('student_login'))
 
-    enrolled_ids = [en.class_id for en in student.student_classes]
+    # Get list of class IDs the student is already enrolled in
+    enrolled_class_ids = [enrollment.class_id for enrollment in student.student_classes]
+
     all_classes = Class.query.all()
     courses = []
+
     for class_ in all_classes:
-        teacher_name = "TBA"
-        if class_.teachers:
-            teacher = class_.teachers[0].teacher
-            teacher_name = teacher.uni_id
+        teacher_info = class_.teachers[0] if class_.teachers else None
+
+        teacher_name = teacher_info.teacher.uni_id if teacher_info else "TBA"
+        class_time = f"{teacher_info.day}, {teacher_info.time}" if teacher_info else "TBD"
+        max_seats = teacher_info.max_seats if teacher_info else 10  # Default fallback
 
         student_count = len(class_.students)
-        is_enrolled = class_.id in enrolled_ids
-        is_full = student_count >= 10  # Change 10 if your max capacity differs
+        is_enrolled = class_.id in enrolled_class_ids
+        is_full = student_count >= max_seats
 
         courses.append({
             "id": class_.id,
             "name": class_.name,
             "teacher_name": teacher_name,
-            "time": "TBD",
+            "time": class_time,
             "student_count": student_count,
             "is_enrolled": is_enrolled,
             "is_full": is_full
         })
 
     return render_template("Student_Add_Courses.html", student_name=student.uni_id, courses=courses)
+
 
 @app.route('/enroll/<int:course_id>')
 def enroll(course_id):
