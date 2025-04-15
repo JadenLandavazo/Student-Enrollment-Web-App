@@ -5,7 +5,7 @@
   <title>Your Courses | UC Merced</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style_forms.css') }}">
 </head>
-<body class = "student-view">
+<body class="student-view">
 
   <!-- Header -->
   <div class="header">
@@ -40,7 +40,7 @@
               <td>{{ course.name }}</td>
               <td>{{ course.teacher_name }}</td>
               <td>{{ course.time }}</td>
-              <td>{{ course.student_count }}/10</td>
+              <td>{{ course.student_count }}/{{ course.max_seats }}</td> <!-- Dynamically show max_seats -->
             </tr>
           {% endfor %}
         </tbody>

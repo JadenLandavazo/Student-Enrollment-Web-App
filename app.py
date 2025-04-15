@@ -183,23 +183,24 @@ def student_view_courses():
 
     courses = []
     for class_ in enrolled_classes:
-        teacher_name = "TBA"
-        class_time = "TBD"
+        teacher_info = class_.teachers[0] if class_.teachers else None
 
-        if class_.teachers:
-            teacher_link = class_.teachers[0]
-            teacher_name = teacher_link.teacher.uni_id
-            class_time = f"{teacher_link.day}, {teacher_link.time}"
+        teacher_name = teacher_info.teacher.uni_id if teacher_info else "TBA"
+        class_time = f"{teacher_info.day}, {teacher_info.time}" if teacher_info else "TBD"
+
+        max_seats = teacher_info.max_seats if teacher_info else 30  # Default fallback value
+
+        student_count = len(class_.students)
 
         courses.append({
-            "id": class_.id,
             "name": class_.name,
             "teacher_name": teacher_name,
             "time": class_time,
-            "student_count": len(class_.students)
+            "student_count": student_count,
+            "max_seats": max_seats  # Ensure this is included in the dictionary
         })
 
-    return render_template('Student_View_Courses.html', student_name=student.uni_id, courses=courses)
+    return render_template('student_view_courses.html', student_name=student.uni_id, courses=courses)
 
 
 @app.route('/student-add-courses')
@@ -210,9 +211,8 @@ def student_add_courses():
 
     student = User.query.filter_by(uni_id=uni_id, role='student').first()
     if not student:
-        return redirect(url_for('student_login'))
+        return redirect(url_for('student_login')) 
 
-    # Get list of class IDs the student is already enrolled in
     enrolled_class_ids = [enrollment.class_id for enrollment in student.student_classes]
 
     all_classes = Class.query.all()
@@ -221,9 +221,12 @@ def student_add_courses():
     for class_ in all_classes:
         teacher_info = class_.teachers[0] if class_.teachers else None
 
+        # Dynamically fetch the teacher's information
         teacher_name = teacher_info.teacher.uni_id if teacher_info else "TBA"
         class_time = f"{teacher_info.day}, {teacher_info.time}" if teacher_info else "TBD"
-        max_seats = teacher_info.max_seats if teacher_info else 10  # Default fallback
+
+        # Dynamically fetch max_seats from TeacherClass (if a teacher exists for the class)
+        max_seats = teacher_info.max_seats if teacher_info else 30  # Default to 30 if no teacher
 
         student_count = len(class_.students)
         is_enrolled = class_.id in enrolled_class_ids
@@ -236,10 +239,12 @@ def student_add_courses():
             "time": class_time,
             "student_count": student_count,
             "is_enrolled": is_enrolled,
-            "is_full": is_full
+            "is_full": is_full,
+            "max_seats": max_seats  # Dynamically include max_seats from TeacherClass
         })
 
     return render_template("Student_Add_Courses.html", student_name=student.uni_id, courses=courses)
+
 
 
 @app.route('/enroll/<int:course_id>')

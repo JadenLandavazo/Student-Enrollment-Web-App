@@ -41,7 +41,7 @@
             <td>{{ course.name }}</td>
             <td>{{ course.teacher_name }}</td>
             <td>{{ course.time }}</td>
-            <td>{{ course.student_count }}/10</td>
+            <td>{{ course.student_count }}/{{ course.max_seats }}</td>  <!-- Dynamically display max_seats -->
             <td style="text-align: center;">
               {% if course.is_enrolled %}
                 <form action="{{ url_for('unenroll', course_id=course.id) }}" method="GET">
